@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ti">
+<head>
+  <title>Kingdom Hotel - About Us</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+<nav>
+  <div class="nav-container">
+    <div class="logo">KINGDOM<span>HOTEL</span></div>
+   <div class="nav-links" id="navLinks">
+     <a href="home.html" data-key="home">Home</a> 
+     <a href="about.html" class="current" data-key="about">About</a>
+     <a href="rooms.html" data-key="rooms">Rooms</a>
+     <a href="events.html" data-key="events">Events</a>
+     <a href="contact.html" data-key="contact">Contacts</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <a href="javascript:void(0)" onclick="changeLanguage('en')">EN</a> | 
+        <a href="javascript:void(0)" onclick="changeLanguage('ti')">ትግ</a>
+      </div>
+      <div class="menu-icon" id="menuIcon" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="rooms-hero">
+  <div class="hero-content">
+    <span class="welcome-tag" data-key="about_tag">Our Story</span>
+    <h1 data-key="about_hero_title">Experience Excellence</h1>
+    <p data-key="about_hero_desc">Established with a vision to provide the best hospitality in Mekelle.</p>
+  </div>
+</header>
+
+<div class="container">
+  <section class="section-title">
+    <h2 data-key="about_title">Providing Luxury Since 2010</h2>
+    <div class="underline"></div>
+  </section>
+
+  <section class="about-flex">
+    <div class="about-image">
+      <img src="logoking.jpg" alt="Hotel Interior">
+    </div>
+    <div class="about-text">
+      <p data-key="about_p1">Kingdom Hotel is a premier destination located in the heart of Mekelle, Ethiopia. We pride ourselves on offering a perfect blend of traditional Ethiopian hospitality and modern luxury.</p>
+      <p data-key="about_p2">Whether you are here for business or pleasure, our dedicated staff is committed to making your stay unforgettable.</p>
+      
+      <div class="about-stats">
+        <div class="stat-item">
+          <h3>15+</h3>
+          <p data-key="stat_exp">Years Experience</p>
+        </div>
+        <div class="stat-item">
+          <h3>50+</h3>
+          <p data-key="stat_rooms">Premium Rooms</p>
+        </div>
+        <div class="stat-item">
+          <h3>10k+</h3>
+          <p data-key="stat_guests">Happy Guests</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mission-vision">
+    <div class="mv-card">
+      <i class="fas fa-eye"></i>
+      <h3 data-key="vision_title">Our Vision</h3>
+      <p data-key="vision_desc">To be the leading luxury hotel in the region, known for our exceptional service and cultural authenticity.</p>
+    </div>
+    <div class="mv-card">
+      <i class="fas fa-bullseye"></i>
+      <h3 data-key="mission_title">Our Mission</h3>
+      <p data-key="mission_desc">To provide our guests with a safe, comfortable, and memorable experience through excellence in service.</p>
+    </div>
+  </section>
+</div>
+
+<section class="cta-section">
+  <div class="container">
+    <h2 data-key="cta_title">Ready to start your journey?</h2>
+    <p data-key="cta_desc">Book your room today and get a 10% discount for your first stay!</p>
+    <a href="rooms.html" class="cta-btn" data-key="cta_btn">Book Your Stay Now</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-info">
+      <h3>KINGDOM HOTEL🏨</h3>
+      <p><i class="fas fa-map-marker-alt"></i> <span data-key="footer_location">መቐለ፣ ኢትዮጵያ</span></p>
+      <p><i class="fas fa-phone"></i> +251 900 000 000</p>
+    </div>
+    <div class="footer-social">
+      <h4 data-key="follow_us">Follow Us</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Kingdom Hotel. All rights reserved.
+  </div>
+</footer>
+
+<script>
+function toggleMenu() {
+  document.getElementById("navLinks").classList.toggle("active");
+}
+</script>
+<script src="script.js"></script>
+<script src="lang.js"></script> </body>
+</html>

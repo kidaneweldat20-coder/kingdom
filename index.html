@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ti">
+<head>
+  <title>Kingdom Hotel - Welcome Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+<nav>
+  <div class="nav-container">
+    <div class="logo">KINGDOM<span>HOTEL</span></div>
+   <div class="nav-links" id="navLinks">
+     <a href="home.html" class="current"data-key="home">Home</a>
+     <a href="about.html"data-key="about">About</a>
+     <a href="rooms.html"data-key="rooms">Rooms</a>
+     <a href="events.html"data-key="events">Events</a>
+     <a href="contact.html"data-key="contact">Contacts</a>
+    </div>
+   <div class="lang-toggle">
+     <a href="javascript:void(0)" onclick="changeLanguage('en')">EN</a> | 
+     <a href="javascript:void(0)" onclick="changeLanguage('ti')">ትግ</a>
+   </div>
+      <div class="menu-icon" id="menuIcon" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+<section class="home-hero">
+  <div class="hero-content">
+<div class="hero-content">
+    <span class="welcome-tag" data-key="welcome">Welcome to Kingdom</span>
+    <h1 data-key="hero_title">Experience a New Level of Comfort</h1>
+    <p data-key="hero_desc">Your perfect stay in Mekelle awaits with premium service and elegant rooms.</p>
+    <div class="hero-btns">
+      <a href="rooms.html" class="main-btn" data-key="view_rooms">View Our Rooms</a>
+      <a href="contact.html" class="sub-btn" data-key="contact_us">Contact Us</a>
+    </div>
+  </div>
+  </div>
+</section>
+<section class="features">
+  <div class="container"> 
+    <div class="section-title"> 
+      <h2 data-key="features_title">Why Choose Kingdom Hotel?</h2>
+      <div class="underline"></div>
+    </div>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <i class="fas fa-bed"></i>
+        <h3 data-key="feat_1_title">Luxury Rooms</h3>
+        <p data-key="feat_1_desc">Expertly designed rooms for your ultimate relaxation.</p>
+      </div>
+
+      <div class="feature-card">
+        <i class="fas fa-wifi"></i>
+        <h3 data-key="feat_2_title">Fast Free Wi-Fi</h3>
+        <p data-key="feat_2_desc">Stay connected with high-speed internet throughout the hotel.</p>
+      </div>
+      <div class="feature-card">
+        <i class="fas fa-utensils"></i>
+        <h3 data-key="feat_3_title">Fine Dining</h3>
+        <p data-key="feat_3_desc">Enjoy local and international dishes from our top chefs.</p>
+      </div>
+
+      <div class="feature-card">
+        <i class="fas fa-shield-alt"></i>
+        <h3 data-key="feat_4_title">24/7 Security</h3>
+        <p data-key="feat_4_desc">Your safety is our priority with round-the-clock protection.</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="cta-section">
+  <div class="container">
+    <h2 data-key="cta_title">Ready to start your journey?</h2>
+    <p data-key="cta_desc">Book your room today and get a 10% discount for your first stay!</p>
+    <a href="rooms.html" class="cta-btn" data-key="cta_btn">Book Your Stay Now</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-info">
+      <h3>KINGDOM HOTEL🏨</h3>
+      <p><i class="fas fa-map-marker-alt"></i> <span data-key="footer_location">መቐለ፣ ኢትዮጵያ</span></p>
+      <p><i class="fas fa-phone"></i> +251 900 000 000</p>
+    </div>
+    <div class="footer-social">
+      <h4 data-key="follow_us">Follow Us</h4>
+      </div>
+  </div>
+</footer>
+<script>
+function toggleMenu() {
+  document.getElementById("navLinks").classList.toggle("active");
+}
+</script> 
+<script src="script.js"></script> 
+<script src="lang.js"></script>
+</body>
+</html>

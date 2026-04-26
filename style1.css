@@ -1,0 +1,719 @@
+/* ============================================================
+   1. GLOBAL VARIABLES & RESET
+   ============================================================ */
+:root {
+  --primary: #359;
+  --gold: #FFD700;
+  --dark: #1a1a1a;
+  --light: #f8f9fa;
+  --shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--light);
+  color: #333;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* ============================================================
+   2. NAVBAR & NAVIGATION
+   ============================================================ */
+nav {
+  background-color: var(--primary);
+  padding: 15px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo { color: white; font-size: 24px; font-weight: 800; letter-spacing: 1px; }
+.logo span { color: var(--gold); }
+
+.nav-links { display: flex; align-items: center; }
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin-left: 25px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+.nav-links a:hover, .nav-links a.current { color: var(--gold); }
+
+/* Language Switcher */
+.lang-switch {
+  margin-left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+}
+.lang-switch span { cursor: pointer; opacity: 0.7; transition: 0.3s; font-size: 14px; }
+.active-lang { opacity: 1 !important; color: var(--gold); font-weight: bold; border-bottom: 2px solid var(--gold); }
+
+/* Hamburger Menu Icon (Desktop: Hidden) */
+.menu-icon {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1001;
+}
+.menu-icon span {
+  display: block;
+  width: 28px;
+  height: 3px;
+  background-color: white;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+/* ============================================================
+   3. HERO SECTIONS
+   ============================================================ */
+.home-hero, .rooms-hero {
+  height: 80vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  padding: 0 20px;
+}
+
+.home-hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+              url('king.jpg');
+              background-size: cover;      /* ነቲ ቦታ ምሉእ ብምሉእ ንክሽፍኖ */
+  background-position: center; /* ኣብ ማእከል ንክኸውን */
+  background-repeat: no-repeat; /* ከይድገም ዝዓግት እዚ እዩ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+.rooms-hero {
+  height: 50vh;
+  /* እቲ ስእሊ ከይተደጋገመ (mirror ንከይከውን) no-repeat ንጥቀመሉ */
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+              url('Rooms.jpg');
+  background-size: cover;      /* ነቲ ቦታ ምሉእ ብምሉእ ንክሽፍኖ */
+  background-position: center; /* ኣብ ማእከል ንክኸውን */
+  background-repeat: no-repeat; /* ከይድገም ዝዓግት እዚ እዩ */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  width: 100%;
+}
+.welcome-tag { color: var(--gold); text-transform: uppercase; font-weight: bold; letter-spacing: 3px; margin-bottom: 15px; display: block; }
+.hero-content h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 20px; }
+.hero-content p { font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9; max-width: 700px; margin-inline: auto; }
+
+.hero-btns { display: flex; gap: 15px; justify-content: center; }
+.main-btn, .sub-btn { padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: 0.3s; }
+.main-btn { background: var(--gold); color: var(--dark); }
+.sub-btn { border: 2px solid white; color: white; }
+.main-btn:hover { background: #e6c300; transform: translateY(-3px); }
+.sub-btn:hover { background: white; color: var(--primary); }
+/* ============================================================
+   ABOUT SECTION ADJUSTMENTS
+   ============================================================ */
+.about-flex {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap; /* ኣብ ንእሽቶ ስክሪን ሓደ ኣብ ትሕቲ ሓደ ንክኸውን */
+}
+
+.about-image {
+  flex: 1;
+  min-width: 300px;
+}
+
+.about-image img {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  object-fit: cover;
+  display: block;
+}
+
+.about-text {
+  flex: 1.2;
+  min-width: 300px;
+}
+
+.about-text p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Stats Styling */
+.about-stats {
+  display: flex;
+  gap: 30px;
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid #eee;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-item h3 {
+  color: var(--primary);
+  font-size: 2.2rem;
+  margin-bottom: 5px;
+}
+
+.stat-item p {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #777;
+  margin-bottom: 0;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .about-flex {
+    gap: 30px;
+    text-align: center;
+  }
+  
+  .about-stats {
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .stat-item h3 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ============================================================
+   4. SECTIONS, CONTAINERS & GRIDS
+   ============================================================ */
+.container { max-width: 1200px; margin: 80px auto; padding: 0 20px; }
+.section-title { text-align: center; margin-bottom: 50px; }
+.section-title h2 { font-size: 2.2rem; color: var(--primary); }
+.underline { width: 70px; height: 4px; background: var(--gold); margin: 10px auto; }
+
+/* Features & Rooms Grid */
+.features-grid, .rooms-grid, .events-grid { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  gap: 30px; 
+}
+
+.feature-card, .card, .event-card { 
+  padding: 20px; 
+  background: white; 
+  border-radius: 15px; 
+  box-shadow: var(--shadow); 
+  transition: 0.3s; 
+}
+.card, .event-card { padding: 0; overflow: hidden; }
+.card:hover, .feature-card:hover { transform: translateY(-10px); }
+
+.card-img, .event-image { position: relative; height: 250px; }
+.card-img img, .event-image img { width: 100%; height: 100%; object-fit: cover; }
+
+.price-tag {
+  position: absolute; top: 15px; right: 15px; background: var(--primary);
+  color: white; padding: 8px 15px; border-radius: 20px; font-weight: bold;
+}
+
+.card-info, .event-info { padding: 25px; text-align: center; }
+.book-btn {
+  background: var(--gold); border: none; width: 100%; padding: 12px;
+  border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px;
+}
+
+/* ============================================================
+   5. CTA SECTION (Call to Action)
+   ============================================================ */
+.cta-section {
+  padding: 100px 20px;
+  background: linear-gradient(rgba(34, 85, 153, 0.85), rgba(34, 85, 153, 0.85)), 
+              url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1350&q=80');
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  color: white;
+}
+
+.cta-section .container {
+  max-width: 800px;
+  margin: 0 auto !important;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 16px 45px;
+  background-color: var(--gold);
+  color: var(--dark) !important;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 50px;
+  transition: 0.3s ease;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+.cta-btn:hover { background-color: white; transform: translateY(-5px); }
+   /* ============================================================
+   7. MODAL & BOOKING FORM (ዝተመዓራረየ)
+   ============================================================ */
+.modal-overlay {
+  display: none; 
+  position: fixed; 
+  top: 0; left: 0; 
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7); 
+  z-index: 2000; 
+  justify-content: center; 
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white; 
+  width: 100%; 
+  max-width: 450px; 
+  border-radius: 20px; 
+  padding: 30px;
+  position: relative; 
+  box-shadow: 0 15px 50px rgba(0,0,0,0.3);
+  animation: slideIn 0.3s ease-out;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+}
+
+.modal-header h2 {
+  font-size: 1.5rem;
+  color: var(--dark);
+}
+
+.close-icon {
+  cursor: pointer;
+  font-size: 20px;
+  color: #666;
+  transition: 0.3s;
+}
+
+.close-icon:hover { color: red; }
+
+/* Form Inputs */
+.input-group {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.input-group i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+  font-size: 18px;
+}
+
+.input-group input, 
+.input-group select {
+  width: 100%;
+  padding: 12px 15px 12px 45px; /* ንኣይኮን ቦታ ይሓድግ */
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+}
+
+.input-group input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 5px rgba(51, 85, 153, 0.2);
+}
+
+/* Payment Info Box */
+.payment-info {
+  background: #f8faff;
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px 0;
+  border-left: 5px solid var(--primary);
+}
+
+.payment-info h4 {
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+.bank-details p {
+  margin: 5px 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Buttons */
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.confirm-btn {
+  flex: 2;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cancel-btn {
+  flex: 1;
+  background: #f0f0f0;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.confirm-btn:hover { background: #2a4477; }
+.cancel-btn:hover { background: #e0e0e0; }
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   CONTACT PAGE STYLING
+   ============================================================ */
+.contact-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+/* Info Cards */
+.contact-info-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.info-card {
+  background: white;
+  padding: 30px;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  transition: 0.3s;
+}
+
+.info-card:hover { transform: translateY(-5px); }
+
+.info-card i {
+  font-size: 35px;
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+/* Contact Flex (Form & Map) */
+.contact-flex {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.contact-form, .contact-map {
+  flex: 1;
+  min-width: 320px;
+}
+
+.contact-form {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.contact-form h2 {
+  margin-bottom: 25px;
+  color: var(--primary);
+}
+
+/* Form Inputs Adjustment */
+.contact-form input, 
+.contact-form textarea {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1.5px solid #eee;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 16px;
+  outline: none;
+}
+
+.contact-form input:focus, 
+.contact-form textarea:focus {
+  border-color: var(--primary);
+}
+
+/* Map Styling */
+.contact-map iframe {
+  box-shadow: var(--shadow);
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+  .contact-form { padding: 25px; }
+  .contact-flex { gap: 20px; }
+}
+
+/* ============================================================
+   7. FOOTER
+   ============================================================ */
+footer {
+  background-color: #0f172a; /* ዝጸለመ ሰማያዊ ንዝያዳ ጽባቐ */
+  color: #e2e8f0;
+  padding: 80px 20px 30px;
+  font-family: 'Inter', sans-serif;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 50px;
+}
+
+.footer-info h3 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.footer-info p {
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.footer-info i {
+  color: var(--gold); /* ነቲ ወርቃዊ ሕብሪ ንምድማቕ */
+  font-size: 1.1rem;
+}
+
+.footer-social h4 {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+/* Hover Effects ንነፍሲ ወከፍ ሶሻል ሜድያ */
+.social-icons a:hover {
+  transform: translateY(-5px);
+  background: var(--gold);
+  color: #000;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  font-size: 0.85rem;
+  opacity: 0.5;
+  letter-spacing: 0.5px;
+}
+/* ============================================================
+   8. RESPONSIVENESS & NAVIGATION CONTROL
+   ============================================================ */
+
+/* --- Desktop Styles (769px and up) --- */
+@media (min-width: 769px) {
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    padding: 0 5%;
+  }
+
+  /* ሊንክታት ልክዕ ኣብ ማእከል ንክኾኑ */
+  .nav-links {
+    display: flex !important;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 30px;
+  }
+
+  .nav-links a {
+    margin-left: 0; /* ነቲ ናይ ቀደም 25px margin የወግዶ */
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .lang-toggle {
+    display: flex;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 15px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    color: white;
+  }
+
+  .lang-toggle a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .menu-icon {
+    display: none; /* ኣብ Desktop ይጠፍእ */
+  }
+}
+
+/* --- Mobile Styles (768px and below) --- */
+@media (max-width: 768px) {
+  .nav-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .lang-toggle {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    background: white;
+    color: var(--primary);
+    border-radius: 15px;
+    white-space: nowrap;
+  }
+
+  .lang-toggle a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .menu-icon {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--primary);
+    flex-direction: column;
+    padding: 40px 0;
+    text-align: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+    z-index: 1000;
+  }
+
+  .nav-links.active {
+    display: flex;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  .nav-links a {
+    margin: 15px 0;
+    font-size: 1.3rem;
+    display: block;
+  }
+
+  /* Footer Adjustment for Mobile */
+  footer {
+    padding: 50px 20px 20px;
+    text-align: center;
+  }
+  
+  .footer-info p, .social-icons {
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   9. ANIMATIONS
+   ============================================================ */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}

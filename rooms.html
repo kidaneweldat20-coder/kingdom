@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ti">
+<head>
+  <title>Kingdom Hotel - Rooms</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+<nav>
+  <div class="nav-container">
+    <div class="logo">KINGDOM<span>HOTEL</span></div>
+   <div class="nav-links" id="navLinks">
+     <a href="home.html" data-key="home">Home</a> 
+     <a href="about.html" data-key="about">About</a>
+     <a href="rooms.html" class="current" data-key="rooms">Rooms</a>
+     <a href="events.html" data-key="events">Events</a>
+     <a href="contact.html" data-key="contact">Contacts</a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <a href="javascript:void(0)" onclick="changeLanguage('en')">EN</a> | 
+        <a href="javascript:void(0)" onclick="changeLanguage('ti')">ትግ</a>
+      </div>
+      <div class="menu-icon" id="menuIcon" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="rooms-hero">
+  <div class="hero-content">
+    <h1 data-key="rooms_hero_title">Our Luxury Rooms</h1>
+    <p data-key="rooms_hero_desc">Experience world-class comfort in the heart of Mekelle</p>
+  </div>
+</header>
+
+<div class="container">
+  <div class="section-title">
+    <h2 data-key="rooms_title">Choose Your Stay</h2>
+    <div class="underline"></div>
+  </div>
+
+  <div class="rooms-grid">
+    <div class="card">
+      <div class="card-img">
+        <img src="bed1.jpg" alt="Single Room">
+        <div class="price-tag">1250 ETB</div>
+      </div>
+      <div class="card-info">
+        <h3 data-key="room_1_type">Single Room | በዓል ሓደ</h3>
+        <p data-key="room_1_desc">Perfect for solo travelers with all modern amenities.</p>
+        <button class="book-btn" data-key="book_now" onclick="bookRoom('Single Room')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img">
+        <img src="double.jpg" alt="Double Room">
+        <div class="price-tag">3800 ETB</div>
+      </div>
+      <div class="card-info">
+        <h3 data-key="room_2_type">Double Room | በዓል ክልተ</h3>
+        <p data-key="room_2_desc">Spacious rooms designed for couples or friends.</p>
+        <button class="book-btn" data-key="book_now" onclick="bookRoom('Double Room')">Book Now</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img">
+        <img src="bedvip.jpg" alt="VIP Suite">
+        <div class="price-tag">10,000 ETB</div>
+      </div>
+      <div class="card-info">
+        <h3 data-key="room_3_type">VIP Suite | ቪኣይፒ</h3>
+        <p data-key="room_3_desc">The ultimate luxury experience with premium views.</p>
+        <button class="book-btn" data-key="book_now" onclick="bookRoom('VIP Suite')">Book Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modalOverlay" class="modal-overlay">
+  <div id="bookingBox" class="modal-content">
+    <div class="modal-header">
+      <h2 id="roomTitle"></h2>
+      <i class="fas fa-times close-icon" onclick="closeBox()"></i>
+    </div>
+    <form onsubmit="submitBooking(event)">
+      <div class="input-group">
+        <i class="fas fa-user"></i>
+        <input type="text" id="name" placeholder="Full Name" required>
+      </div>
+      <div class="input-group">
+        <i class="fas fa-calendar-alt"></i>
+        <input type="date" id="date" required>
+      </div>
+      <div class="payment-info">
+        <h4 data-key="pay_instruct">Payment Instructions</h4>
+        <div class="bank-details">
+          <p><i class="fas fa-university"></i> CBE: 1000095975384</p>
+          <p><i class="fas fa-mobile-alt"></i> Telebirr: 0911848120</p>
+        </div>
+        <label class="file-label" data-key="upload_label">Upload Receipt (Image or PDF):</label>
+        <input type="file" id="receipt" accept="image/*, .pdf" required>
+      </div>
+      <div class="modal-buttons">
+        <button type="submit" class="confirm-btn" data-key="confirm_btn">Confirm Booking</button>
+        <button type="button" class="cancel-btn" data-key="cancel_btn" onclick="closeBox()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-info">
+      <h3>KINGDOM HOTEL🏨</h3>
+      <p><i class="fas fa-map-marker-alt"></i> <span data-key="footer_location">መቐለ፣ ኢትዮጵያ</span></p>
+      <p><i class="fas fa-phone"></i> +251 900 000 000</p>
+    </div>
+    <div class="footer-social">
+      <h4 data-key="follow_us">Follow Us</h4>
+      <div class="social-icons">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-telegram"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Kingdom Hotel. All rights reserved.
+  </div>
+</footer>
+
+<script>
+// Toggle Menu Function
+function toggleMenu() {
+  document.getElementById("navLinks").classList.toggle("active");
+}
+
+let selectedRoom = "";
+
+function bookRoom(room) {
+  selectedRoom = room;
+  const isTigrinya = document.documentElement.lang === 'ti';
+  // እታ Title ምስቲ ቋንቋ ንክሰማማዕ
+  document.getElementById("roomTitle").innerText = isTigrinya ? "ምዝገባ: " + room : "Booking: " + room;
+  document.getElementById("modalOverlay").style.display = "flex";
+}
+
+function closeBox() {
+  document.getElementById("modalOverlay").style.display = "none";
+}
+
+function submitBooking(e) {
+  e.preventDefault();
+  
+  const name = document.getElementById("name").value;
+  const isTigrinya = document.documentElement.lang === 'ti';
+  
+  // --- ናብ WhatsApp መልእኽቲ ንምስዳድ ---
+  
+  // ስልኪ ቁጽሪ እቲ በዓል ሆቴል (ኣብዚ ናይቲ በዓል ዋና ቁጽሪ ተክኣዮ)
+  const hotelPhoneNumber = "25148951993"; 
+  
+  // መልእኽቲ ከምቲ ዝተመርጸ ቋንቋ ምድላው
+  let message = "";
+  if (isTigrinya) {
+    message = `ሰላም ኪንግደም ሆቴል፡ ሓድሽ ናይ ምዝገባ ሕቶ ኣሎ፦%0A%0A` +
+              `*ስም ዓሚል:* ${name}%0A` +
+              `*ዓይነት ክፍሊ:* ${selectedRoom}%0A%0A` +
+              `ናይ ክፍሊት ሪሲት ኣብዚ ኣተሓሒዘ ኣለኹ። በጃኹም ኣረጋግጹለይ።`;
+  } else {
+    message = `Hello Kingdom Hotel, I have a new booking request:%0A%0A` +
+              `*Guest Name:* ${name}%0A` +
+              `*Room Type:* ${selectedRoom}%0A%0A` +
+              `I have attached my payment receipt. Please confirm my booking.`;
+  }
+
+  // ናይ WhatsApp Link ምፍጣር
+  const whatsappUrl = `https://wa.me/${hotelPhoneNumber}?text=${message}`;
+
+  // ዋትሳፕ ምኽፋት
+  window.location.href = whatsappUrl;
+  // Confirmation Alert
+  if (isTigrinya) {
+    alert("የቐንየልና " + name + "! ናብ WhatsApp ይወስደካ ኣሎ። መልእኽቲ ምስ ሰደድካ ክንድውለልካ ኢና። 🎉");
+  } else {
+    alert("Thank you " + name + "! You are being redirected to WhatsApp. We will call you after you send the message. 🎉");
+  }
+
+  closeBox();
+  document.getElementById("bookingForm").reset(); // Form ID ርግጸኛ ኩን
+}
+
+// ወጻኢ እንተጠዊቑ ንክዕጸው
+window.onclick = function(event) {
+  const modal = document.getElementById("modalOverlay");
+  if (event.target == modal) closeBox();
+}
+
+</script>
+<script src="lang.js"></script>
+</body>
+</html>
