@@ -7,7 +7,7 @@ function toggleMenu() {
 }
 
 // --- 2. Backend Logic ---
-const googleSheetUrl = "https://script.google.com/macros/s/AKfycbwhMqCnuo46htUohdvwQA13zlniQIqQir-l4LqlMfgDo54BhPV_mpbmF9stWVIfC6G0/exec";
+const googleSheetUrl = "https://script.google.com/macros/s/AKfycbwgBJEEs6CMs7eyAV1wACPfBSHPkP38ipHV3mSSS8rO-fIPs7mKty1BefdrW8XJspUg_Q/exec";
 const imgbbKey = "470e18bf524a4e7396d4002569e54083";
 
 async function submitBooking(event) {
