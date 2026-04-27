@@ -102,8 +102,9 @@
           <p><i class="fas fa-university"></i> CBE: 1000095975384</p>
           <p><i class="fas fa-mobile-alt"></i> Telebirr: 0911848120</p>
         </div>
-        <label class="file-label" data-key="upload_label">Upload Receipt (Image or PDF):</label>
-        <input type="file" id="receipt" accept="image/*, .pdf" required>
+       <label>ናይ ክፍሊት ሪሲት (Receipt):</label>
+      <input type="file" id="receiptImage" accept="image/*" required>
+       <button type="submit" onclick="submitBooking(event)">Book Now</button>
       </div>
       <div class="modal-buttons">
         <button type="submit" class="confirm-btn" data-key="confirm_btn">Confirm Booking</button>
@@ -188,11 +189,10 @@ function submitBooking(e) {
   window.location.href = whatsappUrl;
   // Confirmation Alert
   if (isTigrinya) {
-    alert("የቐንየልና " + name + "! ናብ WhatsApp ይወስደካ ኣሎ። መልእኽቲ ምስ ሰደድካ ክንድውለልካ ኢና። 🎉");
+    alert("የቐንየልና " + name + "! ናብ WhatsApp ይወስደካ ኣሎ። በጃኻ ኣብ ዋትሳፕ ምስ ኣተኻ ነታ ናይ ክፍሊት ሪሲት ስእሊ (Attach) ጌርካ ስደደልና። 🎉");
   } else {
-    alert("Thank you " + name + "! You are being redirected to WhatsApp. We will call you after you send the message. 🎉");
+    alert("Thank you " + name + "! Redirecting to WhatsApp. Please attach your payment receipt photo once you are in WhatsApp. 🎉");
   }
-
   closeBox();
   document.getElementById("bookingForm").reset(); // Form ID ርግጸኛ ኩን
 }
