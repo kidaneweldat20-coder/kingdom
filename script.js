@@ -28,56 +28,41 @@ const imgbbKey = "470e18bf524a4e7396d4002569e54083";
 async function submitBooking(event) {
     event.preventDefault();
     
-    const nameInput = document.getElementById('name');
-    const roomInput = document.getElementById('roomType');
-    const imageInput = document.getElementById('receiptImage');
-    
-    // Check if elements exist
-    if (!nameInput || !roomInput || !imageInput) {
-        console.error("ሓደ ሓደ HTML elements ኣይተረኽቡን። IDs ቼክ ግበር።");
+    // Check if the form elements exist
+    const nameEl = document.getElementById('name');
+    const roomEl = document.getElementById('roomType');
+    const imageEl = document.getElementById('receiptImage');
+
+    if (!nameEl || !roomEl || !imageEl || !imageEl.files[0]) {
+        alert("በጃኻ ኩሉ ቅጥዒ ብትኽክል ምልኣዮ (Please fill all fields and upload receipt)");
         return;
     }
 
-    const name = nameInput.value;
-    const room = roomInput.value;
-    const imageFile = imageInput.files[0];
-    
-    if (!imageFile) {
-        alert("በጃኻ ናይ ክፍሊት ሪሲት ስእሊ ኣእትው (Please upload receipt)");
-        return;
-    }
-
-    // "Loading" መልእኽቲ ንዓሚል ንምርኣይ
-    const originalBtnText = event.target.innerText;
-    event.target.innerText = "እናተሰደደ እዩ... (Uploading...)";
-    event.target.disabled = true;
+    const submitBtn = event.target;
+    submitBtn.innerText = "እናተሰደደ እዩ... (Uploading...)";
+    submitBtn.disabled = true;
 
     try {
-        // A. ነታ ስእሊ ናብ ImgBB ምስዳድ
+        // A. Upload to ImgBB
         const formData = new FormData();
-        formData.append("image", imageFile);
+        formData.append("image", imageEl.files[0]);
 
         const imgResponse = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, {
             method: "POST",
             body: formData
         });
-        
         const imgData = await imgResponse.json();
-        
-        if (!imgData.success) {
-            throw new Error("ስእሊ ክስቀል ኣይከኣለን።");
-        }
-
         const receiptUrl = imgData.data.url;
 
-        // B. ኩሉ ሓበሬታ ናብ Google Sheet ምስዳድ
+        // B. Send to Google Sheets
         await fetch(googleSheetUrl, {
             method: "POST",
             mode: "no-cors", 
+            cache: "no-cache",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                name: name,
-                room: room,
+                name: nameEl.value,
+                room: roomEl.value,
                 receiptUrl: receiptUrl
             })
         });
@@ -88,7 +73,7 @@ async function submitBooking(event) {
     } catch (error) {
         console.error("Error:", error);
         alert("ገሊኡ ጸገም ኣጋጢሙ ኣሎ። በጃኻ እንደገና ፈትን።");
-        event.target.innerText = originalBtnText;
-        event.target.disabled = false;
+        submitBtn.innerText = "Book Now";
+        submitBtn.disabled = false;
     }
 }
