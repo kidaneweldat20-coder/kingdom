@@ -24,7 +24,6 @@ document.addEventListener('click', function(event) {
 // --- 2. ናይ Backend (Google Sheets + ImgBB) ምስራሕ ---
 // 1. እቲ ካብ Google Sheets ዘውጻእካዮ ሓድሽ Web App URL
 const googleSheetUrl = "https://script.google.com/macros/s/AKfycbwhMqCnuo46htUohdvwQA13zlniQIqQir-l4LqlMfgDo54BhPV_mpbmF9stWVIfC6G0/exec";
-
 // 2. እቲ ሕጂ ዝለኣኽካዮ ImgBB API Key
     const imgbbKey = "470e18bf524a4e7396d4002569e54083";
 async function submitBooking(event) {
