@@ -22,7 +22,7 @@ document.addEventListener('click', function(event) {
 });
 
 // --- 2. ናይ Backend (Google Sheets + ImgBB) ምስራሕ ---
-const googleSheetUrl = "https://script.google.com/macros/s/AKfycbygi375jZ6XAOqkORbhsiiWQ3yX6w2HHdDQayXJ9gxQh-7621kWAQXyh93Wrx_PQ-Of/exec";
+const googleSheetUrl ="https://script.google.com/macros/s/AKfycbzk-2rbhoz2VQRv0cGN-5_mvn5iHWbvj83b6JONl4Y/dev";
 const imgbbKey = "470e18bf524a4e7396d4002569e54083";
 
 async function submitBooking(event) {
