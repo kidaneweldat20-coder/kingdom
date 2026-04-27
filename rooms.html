@@ -88,24 +88,30 @@
       <i class="fas fa-times close-icon" onclick="closeBox()"></i>
     </div>
     <form id="bookingForm" onsubmit="submitBooking(event)">
-      <div class="input-group">
-        <i class="fas fa-user"></i>
-        <input type="text" id="name" placeholder="Full Name" required>
+      
+      <div class="input-group" style="margin-bottom: 15px; position: relative;">
+        <i class="fas fa-user" style="position: absolute; left: 10px; top: 12px; color: #666;"></i>
+        <input type="text" id="name" placeholder="Full Name" required style="width: 100%; padding: 10px 10px 10px 35px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
       </div>
       
-      <div class="payment-info">
-        <h4 data-key="pay_instruct">Payment Instructions</h4>
-        <div class="bank-details">
-          <p><i class="fas fa-university"></i> CBE: 1000095975384</p>
-          <p><i class="fas fa-mobile-alt"></i> Telebirr: 0911848120</p>
+      <div class="input-group" style="margin-bottom: 15px; position: relative;">
+        <i class="fas fa-calendar-alt" style="position: absolute; left: 10px; top: 12px; color: #666;"></i>
+        <input type="date" id="bookingDate" required style="width: 100%; padding: 10px 10px 10px 35px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
+      </div>
+      
+      <div class="payment-info" style="background: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid #d4af37; margin-bottom: 15px;">
+        <h4 data-key="pay_instruct" style="margin-top: 0;">Payment Instructions</h4>
+        <div class="bank-details" style="font-size: 0.9em; margin-bottom: 10px;">
+          <p style="margin: 5px 0;"><i class="fas fa-university"></i> CBE: 1000095975384</p>
+          <p style="margin: 5px 0;"><i class="fas fa-mobile-alt"></i> Telebirr: 0911848120</p>
         </div>
-        <label>ናይ ክፍሊት ሪሲት (Receipt):</label>
-        <input type="file" id="receiptImage" accept="image/*" required>
+        <label style="display: block; margin-bottom: 5px; font-weight: bold;">ናይ ክፍሊት ሪሲት (Receipt):</label>
+        <input type="file" id="receiptImage" accept="image/*" required style="width: 100%;">
       </div>
 
-      <div class="modal-buttons">
-        <button type="submit" id="submitBtn" class="confirm-btn">Confirm Booking</button>
-        <button type="button" class="cancel-btn" onclick="closeBox()">Cancel</button>
+      <div class="modal-buttons" style="display: flex; gap: 10px;">
+        <button type="submit" id="submitBtn" class="confirm-btn" style="flex: 2; background: #d4af37; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">Confirm Booking</button>
+        <button type="button" class="cancel-btn" onclick="closeBox()" style="flex: 1; background: #eee; border: none; padding: 12px; border-radius: 5px; cursor: pointer;">Cancel</button>
       </div>
     </form>
   </div>
