@@ -23,7 +23,7 @@ document.addEventListener('click', function(event) {
 
 // --- 2. ናይ Backend (Google Sheets + ImgBB) ምስራሕ ---
 // 1. እቲ ካብ Google Sheets ዘውጻእካዮ ሓድሽ Web App URL
-const googleSheetUrl = "https://script.google.com/macros/s/AKfycbws9UHPTuGkP0IUic7yAspWYPErqiOkNY49j3ZOuu6UGGEMAg6sv-67bZg8NRq1eTmf/exec";
+const googleSheetUrl = "https://script.google.com/macros/s/AKfycbwhMqCnuo46htUohdvwQA13zlniQIqQir-l4LqlMfgDo54BhPV_mpbmF9stWVIfC6G0/exec";
 
 // 2. እቲ ሕጂ ዝለኣኽካዮ ImgBB API Key
     const imgbbKey = "470e18bf524a4e7396d4002569e54083";
