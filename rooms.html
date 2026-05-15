@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="style1.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 <body>
 <nav>
@@ -156,7 +158,7 @@
 </div>
 
 <!-- Confirm Booking (መጀመርታ Disabled ክኸውን ይኽእል እዩ ዓሚል ክሳብ ዝፍትሽ) -->
-
+<div class="g-recaptcha" data-sitekey="6Ldac-ssAAAAAKf-psfJEWXRIlIQzwJqjMfBms2"></div>
   <div class="modal-buttons" style="display: flex; gap: 10px;">
         <button type="submit" id="submitBtn" class="confirm-btn">
           <span id="btnText">Confirm Booking</span>
@@ -169,15 +171,24 @@
 </div>
 <div class="hotel-policy" style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #fffbe6;">
     <h4 style="color: #d4a017; border-bottom: 2px solid #d4a017; display: inline-block; margin-bottom: 10px;">
-        <i class="fas fa-exclamation-circle"></i> ኣገደስቲ መምርሒታት (Important Rules)
+        <i class="fas fa-exclamation-circle"></i> 
+        <span data-key="policy_title">Important Rules</span>
     </h4>
     <ul style="list-style: none; padding: 0; line-height: 1.8;">
-        <li><i class="fas fa-clock" style="color: #702d8e;"></i> <b>1. ሰዓት መእተውን መውጽእን፦</b> መእተዊ (Check-in) ካብ ሰዓት 6:00 (ቀጥሪ) ጀሚሩ፡ መውጽኢ (Check-out) ቅድሚ ሰዓት 6:00 (ቀጥሪ)።</li>
-        <li><i class="fas fa-users-slash" style="color: #702d8e;"></i> <b>2. ደረት ሰብ፦</b> ኣብ ሓደ ዓራት (Single Room) ልዕሊ ክልተ ሰብ ምጽናሕ ኣይፍቀድን።</li>
-        <li><i class="fas fa-id-card" style="color: #702d8e;"></i> <b>3. መለለዪ መንነት፦</b> ኩሎም ዓማዊል ሕጋዊ መለለዪ መንነት (ID Card/Passport) ክሕዙ ይግደዱ።</li>
+        <li style="margin-bottom: 8px;">
+            <i class="fas fa-clock" style="color: #702d8e;"></i> 
+            <span data-key="rule_1"><b>1. Check-in/out:</b> Check-in from 12:00 PM; Check-out before 12:00 PM.</span>
+        </li>
+        <li style="margin-bottom: 8px;">
+            <i class="fas fa-users-slash" style="color: #702d8e;"></i> 
+            <span data-key="rule_2"><b>2. Occupancy:</b> Maximum of 2 people per single room.</span>
+        </li>
+        <li>
+            <i class="fas fa-id-card" style="color: #702d8e;"></i> 
+            <span data-key="rule_3"><b>3. Identification:</b> Guests must present a valid ID card or Passport.</span>
+        </li>
     </ul>
 </div>
-
 <footer>
   <div class="footer-container">
     <div class="footer-info">

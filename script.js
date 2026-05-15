@@ -8,7 +8,6 @@ function toggleMenu() {
   navLinks.classList.toggle("active");
   menuIcon.classList.toggle("active");
 }
-
 let selectedRoom = "";
 
 function bookRoom(room) {
@@ -34,7 +33,7 @@ window.onclick = function(event) {
 }
 //
   // እቲ ናይ Google Apps Script URL
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwczdAs2siXWTpYN1zRJ01x6e_emMI0JDCoOv55y2rjwfRhQFXD9XcyYuGMr2pEob6SgQ/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzKWSpHn_Jx3pHyntNX24IN5-SI63vUh4NDbUDgOvEPqa0pK142CcTw8ARNrXwrmJNl_g/exec";
 const imgbbKey = "470e18bf524a4e7396d4002569e54083";
   let selectedRoom = "";
 

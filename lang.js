@@ -67,7 +67,16 @@ const translations = {
         'confirm_btn': 'Confirm Booking',
         'cancel_btn': 'Cancel',
         'upload_label': 'Upload Receipt (Image or PDF):',
-        
+        //policy
+        'policy_title': 'Hotel Rules & Policy',
+       'rule_1': '1. Check-in/out: Check-in starts at 12:00 PM; Check-out is before 12:00 PM.',
+        'rule_2': '2. Occupancy: Maximum of 2 people per single bed/room.',
+        'rule_3': '3. Identification: Guests must present a valid ID or Passport upon arrival.',
+         //review
+         'reviews_title': 'What Our Guests Say',
+        'rev_1_text': '"The best hotel in Mekelle! Fast Wi-Fi and very clean rooms."',
+         'rev_2_text': '"Excellent service and the food is delicious. Highly recommended!"',
+
         // ርክብ (Contact)
         'contact_hero_h1': 'Get In Touch',
         'phone_title': 'Phone',
@@ -129,7 +138,7 @@ const translations = {
 
         // ምዝገባን ክፍሊትን (Booking & Payment)
         'read_instructions': 'ቅድሚ ምምዝጋብኩም መምርሒ ኣንብቡ',
-        'instr_title': 'ናይ ኣመማዝግባ መምርሒ',
+        'instr_title': 'ናይ ኣመዛጋግባ መምርሒ',
         'instr_step_1': '1. ትርፊ ምዃኑ ምርግጋጽ፡ መጀመርታ ዕለታት ምረጹ።',
         'instr_step_2': '2. ክፍሊት፡ ነቲ ዝግባእ ክፍሊት የውርዱ።',
         'instr_step_3': '3. ሪሲት፡ ናይቲ ዝኸፈልኩሙሉ ሪሲት ስእሊ ኣልዕሉ።',
@@ -138,7 +147,16 @@ const translations = {
         'confirm_btn': 'ምዝገባ ኣረጋግጽ',
         'cancel_btn': 'ሰርዝ',
         'upload_label': 'ናይ ክፍሊት ሪሲት ኣእትዉ፦',
-        
+        //policy
+        'policy_title': 'ኣገደስቲ መምርሒታት',
+'rule_1': '1. ሰዓት መእተውን መውጽእን፦ መእተዊ ካብ ሰዓት 6:00 (ቀጥሪ)፡ መውጽኢ ቅድሚ ሰዓት 6:00 (ቀጥሪ)።',
+'rule_2': '2. ደረት ሰብ፦ ኣብ ሓደ ዓራት ልዕሊ ክልተ ሰብ ምጽናሕ ኣይፍቀድን።',
+'rule_3': '3. መለለዪ መንነት፦ ኩሎም ዓማዊል ሕጋዊ መለለዪ መንነት ክሕዙ ኣለዎም፧',
+       //ረርኢቶ
+       'reviews_title': 'ዓማዊልና ዝበሉና',
+       'rev_1_text': '"ኣብ መቐለ ዘሎ ብሉጽ ሆቴል! ቅልጡፍ ኢንተርነትን ኣዝዮም ጽሩያት ክፍልታትን።"',
+      'rev_2_text': '"ብሉጽ ኣገልግሎት፣ መግቦም እውን ኣዝዩ ምቁር እዩ። ኩሉ ሰብ ክበጽሖ እምከር።"',
+
         // ርክብ (Contact)
         'contact_hero_h1': 'ርክብ ይፍጠሩ',
         'phone_title': 'ስልኪ',

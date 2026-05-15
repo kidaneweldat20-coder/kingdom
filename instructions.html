@@ -6,18 +6,46 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link rel="stylesheet" href="style1.css">
   <style>
-    .instr-container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-    .instr-step { display: flex; align-items: flex-start; margin-bottom: 20px; padding: 15px; border-left: 4px solid #d4af37; background: #fffdf5; }
-    .instr-step i { color: #d4af37; font-size: 1.5em; margin-right: 15px; margin-top: 5px; }
-    .instr-step p { margin: 0; font-size: 1.1em; line-height: 1.6; color: #333; }
-    .back-btn { display: inline-block; margin-top: 30px; padding: 10px 25px; background: #d4af37; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+    .instr-container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+     border-bottom: 4px double #359;
+     border-left: 4px double #359;
+    }
+.instr-step { 
+    display: flex;
+    align-items: flex-start;
+    border-left: 4px solid #359;
+    background-color: #3b5998; 
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-bottom: 4px double gold; 
+    
+    /* Shadow: ነቲ ግሉጽነቱ (opacity) ቁሩብ ወሲኸዮ ኣለኹ ንኽርአ */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); 
+    
+    /* Animation */
+    transition: all 0.3s ease;
+}
+
+/* እታ ተወሳኺት ነጥቢ ተኣልያ ኣላ */
+.instr-step:hover {
+    transform: translateY(-8px); /* ንላዕሊ ንክብል */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4); /* ድነኡ ንኽድምቅ */
+    cursor: pointer; /* mouse ምስ ኣንበርካሉ ምልክት ኢድ ንኽመጽእ */
+}
+
+    .instr-step i { color:white; font-size: 1.5em; margin-right: 15px; margin-top: 5px; }
+    .instr-step p { margin: 0; font-size: 1.1em; line-height: 1.6; color:white; }
+    .back-btn { display: inline-block; margin-top: 30px; padding: 10px 25px; background:gold; color: black; text-decoration: none;
+    border-radius: 5px;
+    border:solid 1px#359; font-weight: bold; }
   </style>
 </head>
 <body>
 
 <div class="container">
   <div class="instr-container">
-    <h2 data-key="instr_title" style="color: #d4af37; text-align: center; margin-bottom: 30px;">Booking Instructions</h2>
+    <h2 data-key="instr_title" style="color: #359; text-align: center; margin-bottom: 30px;border-bottom: 4px double gold;text-shadow: 1px 1px 2px rgba(0,0,0,0.1);">Booking Instructions</h2>
     
     <div class="instr-step">
       <i class="fas fa-calendar-check"></i>

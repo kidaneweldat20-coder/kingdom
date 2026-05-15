@@ -59,6 +59,34 @@ async function checkRoomAvailability() {
     console.error(error);
   }
 }
+const bookingForm = document.getElementById('bookingForm'); // ናይ ፎርምካ ID
+const confirmBtn = document.getElementById('confirmBtn'); // ናይ Button ID
+
+bookingForm.addEventListener('submit', function(e) {
+    e.preventDefault(); // ፎርም ባዕሉ ንከይኸይድ ንዓግቶ
+
+    // 1. reCAPTCHA ተነኪኡ ምህላዉ ምርግጋጽ
+    const response = grecaptcha.getResponse();
+
+    if (response.length === 0) {
+        alert("በጃኻ 'I am not a robot' ዝብል ምልክት ግበር!");
+        return; // እቲ ፎርም ኣይሰደድን
+    }
+
+    // 2. እታ Button Disable ንገብራ (ከምቲ ቅድም ዝበልካዮ)
+    confirmBtn.disabled = true;
+    confirmBtn.innerText = "ይጽበዩ...";
+
+    // 3. ኣብዚ እቲ ናብ Google Sheets ወይ EmailJS ዝሰድድ ኮድካ ይኣቱ
+    console.log("ፎርም ብትኽክል ይለኣኽ ኣሎ...");
+    
+    // ነቲ ፎርም ድሕሪ ምልኣኽካ እታ button ንምኽፋት (ንኣብነት ድሕሪ 5 ሰከንድ)
+    setTimeout(() => {
+        confirmBtn.disabled = false;
+        confirmBtn.innerText = "Confirm Booking";
+        grecaptcha.reset(); // ነቲ reCAPTCHA ንምሕዳስ
+    }, 5000);
+});
 
 async function submitBooking(event) {
   event.preventDefault();
