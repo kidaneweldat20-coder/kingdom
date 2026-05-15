@@ -1,5 +1,5 @@
 // 1. ቀንዲ መለለዪታት (Configuration)
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQFGB1ushZyIND2lZ93L94jGlaUEY2cradAJ2LrAHM0AoeZT0WND6VXRqE4jSccOMFWA/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxzk-3RKxuYF_pPzw05Z8J9VRnTz0duiZcLAYIWwn1QGLzUUiAdlNbqnHFljJnGXAumA/exec";
 const imgbbKey = "470e18bf524a4e7396d4002569e54083";
 let selectedRoom = "";
 
