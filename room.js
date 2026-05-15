@@ -1,6 +1,6 @@
 
   // እቲ ናይ Google Apps Script URL
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqOmmdx4eW5Q9GT4HJujB7tyVWnS0dRIe8VCvbFE2Nk8tkeEV6FIoJwthCSUtSaejktA/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyQFGB1ushZyIND2lZ93L94jGlaUEY2cradAJ2LrAHM0AoeZT0WND6VXRqE4jSccOMFWA/exec";
 const imgbbKey = "470e18bf524a4e7396d4002569e54083";
   let selectedRoom = "";
 
@@ -71,7 +71,7 @@ async function submitBooking(event) {
   const status = document.getElementById("availabilityStatus");
 
   // 1. Loading State
-  btnText.innerText = "ምስሊ ይስቀል ኣሎ..."; 
+  btnText.innerText = "(image uploading)ምስሊ ይስቀል ኣሎ..."; 
   spinner.style.display = "inline-block";
   submitBtn.disabled = true;
 
@@ -93,7 +93,7 @@ async function submitBooking(event) {
       }
     }
 
-    btnText.innerText = "ዳታ ይለኣኽ ኣሎ...";
+    btnText.innerText = "(data sending)ዳታ ይለኣኽ ኣሎ...";
 
     // 3. ዳታ ምድላው
     const bookingData = {
@@ -113,7 +113,7 @@ async function submitBooking(event) {
     });
 
     // 5. ዓወት ምርግጋጽ (ኣብ ሓደ መስመር ግበሮ)
-    alert("ምዝገባኹምን ሪሲትኩምን ብትኽክል ተላኢኹ ኣሎ!");
+    alert("(you booked successfuly.)ምዝገባኹምን ሪሲትኩምን ብትኽክል ተላኢኹ ኣሎ!");
     
     // --- AUTOMATIC RESET ---
     bookingForm.reset(); 
@@ -123,7 +123,7 @@ async function submitBooking(event) {
 
   } catch (error) {
     console.error("Error:", error);
-    alert("ጌጋ ተፈጢሩ፡ በጃኹም ኢንተርነትኩም ኣረጋግጹ።");
+    alert("(someting worng happend!) ጌጋ ተፈጢሩ፡ በጃኹም ኢንተርነትኩም ኣረጋግጹ።");
   } finally {
     spinner.style.display = "none";
     btnText.innerText = "Confirm Booking";
