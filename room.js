@@ -1,6 +1,5 @@
 // 1. ቀንዲ መለለዪታት (Configuration)
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwxzk-3RKxuYF_pPzw05Z8J9VRnTz0duiZcLAYIWwn1QGLzUUiAdlNbqnHFljJnGXAumA/exec";
-const imgbbKey = "470e18bf524a4e7396d4002569e54083";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxySwaR6zkmTedIuFIrTCp9eLy4Opy5oBmqrnrTWDfFyrD8zvA3s_411jmWfuAM4pJhbA/exec";
 let selectedRoom = "";
 
 // 2. ሞዳል ንምኽፋት (Open Modal)
