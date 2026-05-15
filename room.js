@@ -19,8 +19,24 @@ const imgbbKey = "470e18bf524a4e7396d4002569e54083";
 
   // ሞዳል ንምዕጻው
   function closeBox() {
-    document.getElementById("modalOverlay").style.display = "none";
-  }
+    // 1. ነቲ ፎርም ባዶ ንምግባር
+    const bookingForm = document.getElementById('bookingForm');
+    if (bookingForm) {
+        bookingForm.reset(); 
+    }
+
+    // 2. ነቲ reCAPTCHA እንደገና ባዶ ንምግባር
+    if (typeof grecaptcha !== 'undefined') {
+        grecaptcha.reset();
+    }
+
+    // 3. ነታ ሳጹን (Modal) ንምዕጻው
+    const modal = document.getElementById('bookingModal'); // ወይ እቲ ሳጹን ዘለዎ ID
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
 async function checkRoomAvailability() {
   const room = selectedRoom; // እቲ ዝተሓረየ ክፍሊ
   const checkIn = document.getElementById("checkIn").value;
