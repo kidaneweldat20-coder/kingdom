@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ti">
+<head>
+  <title>Kingdom Hotel - Instructions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="style1.css">
+  <style>
+    .instr-container { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .instr-step { display: flex; align-items: flex-start; margin-bottom: 20px; padding: 15px; border-left: 4px solid #d4af37; background: #fffdf5; }
+    .instr-step i { color: #d4af37; font-size: 1.5em; margin-right: 15px; margin-top: 5px; }
+    .instr-step p { margin: 0; font-size: 1.1em; line-height: 1.6; color: #333; }
+    .back-btn { display: inline-block; margin-top: 30px; padding: 10px 25px; background: #d4af37; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="instr-container">
+    <h2 data-key="instr_title" style="color: #d4af37; text-align: center; margin-bottom: 30px;">Booking Instructions</h2>
+    
+    <div class="instr-step">
+      <i class="fas fa-calendar-check"></i>
+      <p data-key="instr_step_1">1. Check Availability: First, select your dates and click the 'Check Availability' button.</p>
+    </div>
+
+    <div class="instr-step">
+      <i class="fas fa-money-bill-wave"></i>
+      <p data-key="instr_step_2">2. Payment: Transfer the exact amount to the bank accounts shown in the form.</p>
+    </div>
+
+    <div class="instr-step">
+      <i class="fas fa-camera"></i>
+      <p data-key="instr_step_3">3. Screenshot: Take a clear screenshot of your payment receipt.</p>
+    </div>
+
+    <div class="instr-step">
+      <i class="fas fa-check-circle"></i>
+      <p data-key="instr_step_4">4. Confirm: Upload the receipt and click 'Confirm Booking'. We will verify and email you.</p>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="rooms.html" class="back-btn" data-key="instr_back_btn">Back to Rooms</a>
+    </div>
+  </div>
+</div>
+<script src="lang.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // ኣብ localStorage ተዓቂቡ ዘሎ ቋንቋ ምውሳድ
+    const savedLang = localStorage.getItem('preferredLang') || 'en';
+    changeLanguage(savedLang);
+  });
+</script>
+</body>
+</html>

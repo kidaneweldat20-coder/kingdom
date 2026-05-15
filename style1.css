@@ -318,13 +318,13 @@ nav {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid gold;
   padding-bottom: 12px;
 }
 
 .modal-header h2 {
   font-size: 1.4rem;
-  color: #333;
+  color: #359;
   margin: 0;
 }
 
@@ -337,7 +337,7 @@ nav {
 .input-group label {
   display: block;
   font-size: 0.85rem;
-  color: #444;
+  color: #359;
   margin-bottom: 6px;
   font-weight: 600;
 }
@@ -346,14 +346,14 @@ nav {
   position: absolute;
   left: 12px;
   top: 38px; 
-  color: #356; /* Gold color */
+  color: #359; /*bule*/
   font-size: 0.9rem;
 }
 
 .input-group input {
   width: 100%;
   padding: 12px 12px 12px 38px;
-  border: 1px solid #ddd;
+  border: 1px solid #1268;
   border-radius: 8px;
   font-size: 14px;
   transition: border 0.3s;
@@ -372,9 +372,9 @@ nav {
 
 /* 4. Availability Check Section - ትርፊ ክፍሊ መረጋገጺ */
 .check-btn {
-  background-color: #f9f9f9;
-  color: #333;
-  border: 2px solid #d4af37;
+  background-color: #359;
+  color: #fff;
+  border:1px solid #d4af37;
   padding: 12px;
   border-radius: 8px;
   cursor: pointer;
@@ -389,8 +389,8 @@ nav {
 }
 
 .check-btn:hover {
-  background-color: #d4af37;
-  color: white;
+  background-color:gold;
+  color:black;
 }
 
 #availabilityStatus {
@@ -401,21 +401,39 @@ nav {
   padding: 8px;
   border-radius: 6px;
   min-height: 20px;
+    color: #ff4d4d; /* ንጹር ዝኾነ ቀይሕ ሕብሪ */
+    font-weight: bold;
+    margin-top: 10px;
+
 }
 
 /* 5. Payment Section - ክፍሊት መረዳእታ */
+/* ናይ CBE Purple Theme ንምግባር */
 .payment-info {
-  background: #fffdf2;
-  padding: 15px;
-  border-radius: 10px;
-  border-left: 5px solid #d4af37;
-  margin: 15px 0;
-  font-size: 0.9rem;
+    background-color: #fcfaff;   /* ፈካሲ ፑርፕል ድሕረ-ባይታ */
+    border-left: 5px solid #702d8e; /* እታ ወሰን ናይ CBE ሕብሪ */
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
 }
 
 .payment-info h4 {
-  margin: 0 0 8px 0;
-  font-size: 1rem;
+    color: #359; /* እቲ ኣርእስቲ ብፑርፕል */
+    display: flex;
+    align-items: center;
+    gap: 8px;
+   margin-bottom: 15px;
+    display: inline-block; /* እቲ መስመር ልክዕ ከም መጠን እቲ ጽሑፍ ንክኸውን */
+    border-bottom: 3px double #359; /* 'double' ባዕሉ ክልተ መስመር ይገብሮ */
+    padding-bottom: 5px; /* ኣብ መንጎ ጽሑፍን መስመርን ዘሎ ጋግ */
+    margin-bottom: 15px;
+}
+
+}
+
+.payment-info p {
+    font-weight: bold;
+    color: #333;
 }
 
 /* 6. Action Buttons - ናይ መወዳእታ ቁልፍታት */
@@ -427,7 +445,7 @@ nav {
 
 .confirm-btn {
   flex: 2;
-  background: #1a2a44; /* ብርቱዕ ሰማያዊ */
+  background: #359; /* ብርቱዕ ሰማያዊ */
   color: white;
   border: none;
   padding: 14px;
@@ -808,6 +826,101 @@ footer {
 @keyframes popIn {
   0% { transform: scale(0); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
+}
+/* ==============================================
+   MOBILE NAVIGATION 
+   ============================================== */
+
+/* 1. Hamburger Icon - እታ መኽፈቲት ምልክት */
+.menu-icon {
+  display: none; /* ኣብ Desktop ተሓቢኣ ትጸንሕ */
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 1100; /* ካብ ኩሉ ንላዕሊ ንክኾን */
+  padding: 5px;
+}
+
+.menu-icon span {
+  width: 30px;
+  height: 3px;
+  background-color: #ffffff;
+  border-radius: 2px;
+  transition: 0.4s ease; /* ንኣኒሜሽን */
+}
+
+/* 2. Full-Screen Overlay - እቲ ዝዝርጋሕ ሜኑ */
+@media (max-width: 768px) {
+  .menu-icon {
+    display: flex; /* ኣብ ሞባይል ጥራይ ትርአ */
+  }
+
+  .nav-links {
+    position:fixed;
+    top: -100%; /* መጀመርታ ተሓቢኡ ይጸንሕ (ካብ ላዕሊ) */
+    left: 0;
+    background-color:var(--primary); /* ብርቱዕ ሰማያዊ (ከምቲ ኣብ 9099.png ዘሎ) */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); /* ሊሙጽ ምንቅስቓስ */
+    z-index: 1000;
+  }
+
+  /* JavaScript 'active' class ምስ ወሰኸትሉ ዝኸፍት */
+  .nav-links.active {
+    top: 0;
+  }
+
+  .nav-links a {
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin: 15px 0;
+    text-decoration: none;
+    font-weight: 400;
+    transition: 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: #FFD700; /* ወርቃዊ ሕብሪ */
+  }
+
+  /* 3. Hamburger to 'X' Animation - ምልክት ናብ 'X' ክትቅየር */
+  .menu-icon.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+  }
+  .menu-icon.active span:nth-child(2) {
+    opacity: 0; /* እታ ማእከል ትጠፍእ */
+  }
+  .menu-icon.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+  }
+}
+.guide-link-btn {
+    display: inline-block !important; /* ብግዲ ንክረአ */
+    margin-right: 10px;              /* ካብቲ ጽሑፍ ንክፍለ */
+    font-size: 1.1rem;               /* ዓቐኑ ንምስትኻኸል */
+  padding: 12px 25px;
+  background-color:var(--gold); /* ፈኩስ ሕብሪ */
+  color:var(--dark) ;           /* ወርቃዊ ሕብሪ */
+/*border: 2px solid var(--primary);*/
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-size: 0.9em;
+}
+
+.guide-link-btn:hover {
+  background-color: #359;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.guide-link-btn i {
+  margin-right: 8px;
 }
 
 /* ============================================================

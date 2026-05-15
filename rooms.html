@@ -40,6 +40,12 @@
   <div class="section-title">
     <h2 data-key="rooms_title">Choose Your Stay</h2>
     <div class="underline"></div>
+    
+<div style="text-align: center; margin-top: 20px;">
+  <a href="instructions.html" class="guide-link-btn" data-key="read_instructions">
+    <i class="fas fa-book-open"></i> ቅድሚ ምምዝጋብኩም እዚ መምርሒ ኣንብቡ (Read Instructions)
+  </a>
+</div>
   </div>
 
   <div class="rooms-grid">
@@ -124,13 +130,31 @@
 <!-- መልእኽቲ ዝመሓላለፈሉ ቦታ -->
 <p id="availabilityStatus"></p>
       <!-- Payment Info -->
-      <div class="payment-info">
-        <h4 style="margin-top: 0; color: #d4af37;"><i class="fas fa-info-circle"></i>payment-info( መምርሒ ክፍሊት)</h4>
-        <p style="margin: 5px 0;">CBE: 1000095975384</p>
-        <p style="margin: 5px 0;">Telebirr: 0911848120</p>
-        <label style="display: block; margin-top: 10px; font-weight: bold;">ናይ ክፍሊት ሪሲት (Upload Receipt):</label>
-        <input type="file" id="receiptImage" accept="image/*" required style="margin-top: 5px; font-size: 0.8em; padding-left: 0;">
-      </div>
+<div class="payment-info">
+    <h4 data-key="pay_instruct">
+        <i class="fas fa-coins" style="color:gold;"></i> መምርሒ ክፍሊት (Payment Info)
+    </h4>
+    
+    <p>
+        <span style="color: #702d8e;"><i class="fas fa-university"></i> CBE</span>: 
+        <span style="color: #702d8e; font-weight: bold;">1000095975384</span>
+    </p>
+    
+    <p>
+        <span style="color: #0066ff;"><i class="fas fa-mobile-alt"></i> Telebirr</span>: 
+        <span style="color: #0066ff; font-weight: bold;">0911848120</span>
+    </p>
+
+    <p style="margin-top: 10px; padding: 5px; background: #eee; border-radius: 4px; font-size: 0.9rem;">
+        <i class="fas fa-user-check"></i> <b>Account Name:</b> Kingdom Hotel / [Kidane weldegebrial]
+    </p>
+
+    <label style="display: block; margin-top: 15px; font-weight: bold;" data-key="upload_label">
+        ናይ ክፍሊት ሪሲት (Upload Receipt):
+    </label>
+    <input type="file" id="receiptImage" accept="image/*" required>
+</div>
+
 <!-- Confirm Booking (መጀመርታ Disabled ክኸውን ይኽእል እዩ ዓሚል ክሳብ ዝፍትሽ) -->
 
   <div class="modal-buttons" style="display: flex; gap: 10px;">
@@ -142,6 +166,16 @@
       </div>
     </form>
   </div>
+</div>
+<div class="hotel-policy" style="margin-top: 20px; padding: 15px; border: 1px solid #ddd; border-radius: 8px; background-color: #fffbe6;">
+    <h4 style="color: #d4a017; border-bottom: 2px solid #d4a017; display: inline-block; margin-bottom: 10px;">
+        <i class="fas fa-exclamation-circle"></i> ኣገደስቲ መምርሒታት (Important Rules)
+    </h4>
+    <ul style="list-style: none; padding: 0; line-height: 1.8;">
+        <li><i class="fas fa-clock" style="color: #702d8e;"></i> <b>1. ሰዓት መእተውን መውጽእን፦</b> መእተዊ (Check-in) ካብ ሰዓት 6:00 (ቀጥሪ) ጀሚሩ፡ መውጽኢ (Check-out) ቅድሚ ሰዓት 6:00 (ቀጥሪ)።</li>
+        <li><i class="fas fa-users-slash" style="color: #702d8e;"></i> <b>2. ደረት ሰብ፦</b> ኣብ ሓደ ዓራት (Single Room) ልዕሊ ክልተ ሰብ ምጽናሕ ኣይፍቀድን።</li>
+        <li><i class="fas fa-id-card" style="color: #702d8e;"></i> <b>3. መለለዪ መንነት፦</b> ኩሎም ዓማዊል ሕጋዊ መለለዪ መንነት (ID Card/Passport) ክሕዙ ይግደዱ።</li>
+    </ul>
 </div>
 
 <footer>
