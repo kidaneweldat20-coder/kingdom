@@ -922,6 +922,24 @@ footer {
 .guide-link-btn i {
   margin-right: 8px;
 }
+/* ናይቲ Modal መዕጸዊ (Close Button) ስታይል */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: 0.3s;
+    line-height: 1;
+}
+
+/* እቲ ምልክት ክትንከፍ ከላ ዝኸውን (Hover effect) */
+.close-btn:hover {
+    color: #ff0000; /* ናብ ቀይሕ ይቀየር */
+    transform: scale(1.2); /* ቁሩብ ይዕበ */
+}
 
 /* ============================================================
    9. ANIMATIONS
