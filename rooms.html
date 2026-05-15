@@ -58,7 +58,7 @@
     <div class="card">
       <div class="card-img">
         <img src="double.jpg" alt="Double Room">
-        <div class="price-tag">3800 ETB</div>
+        <div class="price-tag">3000 ETB</div>
       </div>
       <div class="card-info">
         <h3 data-key="room_2_type">Double Room | በዓል ክልተ</h3>
@@ -88,30 +88,57 @@
       <i class="fas fa-times close-icon" onclick="closeBox()"></i>
     </div>
     <form id="bookingForm" onsubmit="submitBooking(event)">
-      
-      <div class="input-group" style="margin-bottom: 15px; position: relative;">
-        <i class="fas fa-user" style="position: absolute; left: 10px; top: 12px; color: #666;"></i>
-        <input type="text" id="name" placeholder="Full Name" required style="width: 100%; padding: 10px 10px 10px 35px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
-      </div>
-      
-      <div class="input-group" style="margin-bottom: 15px; position: relative;">
-        <i class="fas fa-calendar-alt" style="position: absolute; left: 10px; top: 12px; color: #666;"></i>
-        <input type="date" id="bookingDate" required style="width: 100%; padding: 10px 10px 10px 35px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
-      </div>
-      
-      <div class="payment-info" style="background: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 4px solid #d4af37; margin-bottom: 15px;">
-        <h4 data-key="pay_instruct" style="margin-top: 0;">Payment Instructions</h4>
-        <div class="bank-details" style="font-size: 0.9em; margin-bottom: 10px;">
-          <p style="margin: 5px 0;"><i class="fas fa-university"></i> CBE: 1000095975384</p>
-          <p style="margin: 5px 0;"><i class="fas fa-mobile-alt"></i> Telebirr: 0911848120</p>
-        </div>
-        <label style="display: block; margin-bottom: 5px; font-weight: bold;">ናይ ክፍሊት ሪሲት (Receipt):</label>
-        <input type="file" id="receiptImage" accept="image/*" required style="width: 100%;">
+      <!-- Name -->
+      <div class="input-group">
+        <label>Full Name</label>
+        <i class="fas fa-user"></i>
+        <input type="text" id="name" placeholder="ሙሉእ ስም" required>
       </div>
 
-      <div class="modal-buttons" style="display: flex; gap: 10px;">
-        <button type="submit" id="submitBtn" class="confirm-btn" style="flex: 2; background: #d4af37; color: white; border: none; padding: 12px; border-radius: 5px; cursor: pointer; font-weight: bold;">Confirm Booking</button>
-        <button type="button" class="cancel-btn" onclick="closeBox()" style="flex: 1; background: #eee; border: none; padding: 12px; border-radius: 5px; cursor: pointer;">Cancel</button>
+      <!-- Email -->
+      <div class="input-group">
+        <label>Email Address</label>
+        <i class="fas fa-envelope"></i>
+        <input type="email" id="customerEmail" placeholder="ኢመይል" required>
+      </div>
+      
+      <!-- Date Selection (Check-in & Check-out) -->
+      <div class="date-row">
+        <div class="input-group" style="flex: 1;">
+          <label>Check-in (መእተዊ)</label>
+          <i class="fas fa-calendar-check"></i>
+          <input type="date" id="checkIn" required>
+        </div>
+        
+        <div class="input-group" style="flex: 1;">
+          <label>Check-out (መውጽኢ)</label>
+          <i class="fas fa-calendar-times"></i>
+          <input type="date" id="checkOut" required>
+        </div>
+      </div>
+<!-- Check Availability Button -->
+<button type="button" onclick="checkRoomAvailability()" class="check-btn">
+  <i class="fas fa-calendar-check"></i> Check Availability (ትርፊ ምዃኑ አረጋግጽ)
+</button>
+
+<!-- መልእኽቲ ዝመሓላለፈሉ ቦታ -->
+<p id="availabilityStatus"></p>
+      <!-- Payment Info -->
+      <div class="payment-info">
+        <h4 style="margin-top: 0; color: #d4af37;"><i class="fas fa-info-circle"></i>payment-info( መምርሒ ክፍሊት)</h4>
+        <p style="margin: 5px 0;">CBE: 1000095975384</p>
+        <p style="margin: 5px 0;">Telebirr: 0911848120</p>
+        <label style="display: block; margin-top: 10px; font-weight: bold;">ናይ ክፍሊት ሪሲት (Upload Receipt):</label>
+        <input type="file" id="receiptImage" accept="image/*" required style="margin-top: 5px; font-size: 0.8em; padding-left: 0;">
+      </div>
+<!-- Confirm Booking (መጀመርታ Disabled ክኸውን ይኽእል እዩ ዓሚል ክሳብ ዝፍትሽ) -->
+
+  <div class="modal-buttons" style="display: flex; gap: 10px;">
+        <button type="submit" id="submitBtn" class="confirm-btn">
+          <span id="btnText">Confirm Booking</span>
+          <span id="spinner" class="loader" style="display: none;"></span>
+        </button>
+        <button type="button" class="cancel-btn" onclick="closeBox()">Cancel</button>
       </div>
     </form>
   </div>
@@ -139,31 +166,8 @@
     &copy; 2026 Kingdom Hotel. All rights reserved.
   </div>
 </footer>
-<script>
-let selectedRoom = "";
-
-function toggleMenu() {
-  document.getElementById("navLinks").classList.toggle("active");
-}
-
-function bookRoom(room) {
-  selectedRoom = room;
-  const isTigrinya = document.documentElement.lang === 'ti';
-  document.getElementById("roomTitle").innerText = isTigrinya ? "ምዝገባ: " + room : "Booking: " + room;
-  document.getElementById("modalOverlay").style.display = "flex";
-}
-
-function closeBox() {
-  document.getElementById("modalOverlay").style.display = "none";
-}
-
-window.onclick = function(event) {
-  const modal = document.getElementById("modalOverlay");
-  if (event.target == modal) closeBox();
-}
-</script>
-
-<script src="script.js"></script>
 <script src="lang.js"></script>
+<script src="room.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

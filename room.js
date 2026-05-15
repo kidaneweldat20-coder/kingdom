@@ -1,40 +1,6 @@
-function toggleMenu() {
-  const navLinks = document.getElementById("navLinks");
-  const menuIcon = document.getElementById("menuIcon");
-  
-  // Console log ተጠቐም ንምፍታን
-  console.log("Menu toggled!"); 
-  
-  navLinks.classList.toggle("active");
-  menuIcon.classList.toggle("active");
-}
 
-let selectedRoom = "";
-
-function bookRoom(room) {
-  selectedRoom = room;
-  const isTigrinya = document.documentElement.lang === 'ti';
-  document.getElementById("roomTitle").innerText = isTigrinya ? "ምዝገባ: " + room : "Booking: " + room;
-  document.getElementById("modalOverlay").style.display = "flex";
-  
-  // Set minimum date to today
-  const today = new Date().toISOString().split('T')[0];
-  document.getElementById("checkIn").setAttribute('min', today);
-  document.getElementById("checkOut").setAttribute('min', today);
-}
-
-function closeBox() {
-  document.getElementById("modalOverlay").style.display = "none";
-}
-
-// Close modal when clicking outside
-window.onclick = function(event) {
-  const modal = document.getElementById("modalOverlay");
-  if (event.target == modal) closeBox();
-}
-//
   // እቲ ናይ Google Apps Script URL
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwczdAs2siXWTpYN1zRJ01x6e_emMI0JDCoOv55y2rjwfRhQFXD9XcyYuGMr2pEob6SgQ/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxqOmmdx4eW5Q9GT4HJujB7tyVWnS0dRIe8VCvbFE2Nk8tkeEV6FIoJwthCSUtSaejktA/exec";
 const imgbbKey = "470e18bf524a4e7396d4002569e54083";
   let selectedRoom = "";
 
@@ -101,16 +67,18 @@ async function submitBooking(event) {
   const spinner = document.getElementById("spinner");
   const submitBtn = document.getElementById("submitBtn");
   const receiptFile = document.getElementById("receiptImage").files[0];
+  const bookingForm = document.getElementById("bookingForm");
+  const status = document.getElementById("availabilityStatus");
 
-  // Loading State
-  btnText.innerText = "(image uploding)ምስሊ ይስቀል ኣሎ..."; 
+  // 1. Loading State
+  btnText.innerText = "ምስሊ ይስቀል ኣሎ..."; 
   spinner.style.display = "inline-block";
   submitBtn.disabled = true;
 
   try {
     let receiptUrl = "No Image";
 
-    // 1. ነቲ ምስሊ ናብ ImgBB ምስቃል
+    // 2. ነቲ ምስሊ ናብ ImgBB ምስቃል
     if (receiptFile) {
       const formData = new FormData();
       formData.append("image", receiptFile);
@@ -121,32 +89,37 @@ async function submitBooking(event) {
       });
       const imgData = await imgRes.json();
       if (imgData.success) {
-        receiptUrl = imgData.data.url; // እቲ ናይቲ ምስሊ ሊንክ
+        receiptUrl = imgData.data.url; 
       }
     }
 
-    btnText.innerText = "(data sending)ዳታ ይለኣኽ ኣሎ...";
+    btnText.innerText = "ዳታ ይለኣኽ ኣሎ...";
 
-    // 2. ነቲ ኩሉ ዳታ (ምስቲ ሊንክ ሓዊስካ) ናብ Google Apps Script ምስዳድ
+    // 3. ዳታ ምድላው
     const bookingData = {
       name: document.getElementById("name").value,
       email: document.getElementById("customerEmail").value,
       room: selectedRoom,
       checkIn: document.getElementById("checkIn").value,
       checkOut: document.getElementById("checkOut").value,
-      receipt: receiptUrl // እቲ ሊንክ ኣብዚ ኣሎ
+      receipt: receiptUrl 
     };
 
+    // 4. ናብ Google Script ምስዳድ (እዚ እዩ እቲ ትኽክለኛ መንገዲ)
     await fetch(SCRIPT_URL, {
       method: "POST",
-      mode: "no-cors", 
-      headers: { "Content-Type": "application/json" },
+      mode: "no-cors", // እዚ ኣገዳሲ እዩ
       body: JSON.stringify(bookingData)
     });
 
+    // 5. ዓወት ምርግጋጽ (ኣብ ሓደ መስመር ግበሮ)
     alert("ምዝገባኹምን ሪሲትኩምን ብትኽክል ተላኢኹ ኣሎ!");
-    closeBox();
-    document.getElementById("bookingForm").reset(); 
+    
+    // --- AUTOMATIC RESET ---
+    bookingForm.reset(); 
+    status.innerText = ""; 
+    submitBtn.disabled = true; 
+    closeBox(); 
 
   } catch (error) {
     console.error("Error:", error);
@@ -154,32 +127,7 @@ async function submitBooking(event) {
   } finally {
     spinner.style.display = "none";
     btnText.innerText = "Confirm Booking";
-    submitBtn.disabled = false;
   }
-}
-async function submitBooking(event) {
-  event.preventDefault();
-  
-  // UI logic: spinner show...
-  document.getElementById("btnText").innerText = "Sending...";
-  document.getElementById("spinner").style.display = "inline-block";
-  document.getElementById("submitBtn").disabled = true;
-
-  // ... (ናብ Google Script ዳታ ዝሰደሉ ኮድ ኣብዚ ይመጽእ) ...
-
-  setTimeout(() => {
-    alert("Booking Sent Successfully!");
-    
-    // --- RESET LOGIC ---
-    document.getElementById("bookingForm").reset(); // ፎርም Reset
-    document.getElementById("availabilityStatus").innerText = ""; // መልእኽቲ Reset
-    document.getElementById("submitBtn").disabled = true; // Button መሊስካ ዕጸዎ
-    // -------------------
-
-    document.getElementById("spinner").style.display = "none";
-    document.getElementById("btnText").innerText = "Confirm Booking";
-    closeBox();
-  }, 2000);
 }
 
 function toggleMenu() {
@@ -190,5 +138,3 @@ function toggleMenu() {
   navLinks.classList.toggle("active");
   menuIcon.classList.toggle("active");
 }
-
-
