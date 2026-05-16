@@ -2,7 +2,7 @@
 // ናትካ Google Apps Script URL
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxET7X5eFqm1IxtbcR36YkJhtpeIBDrV-qNow4d3vo4UGru7wULWZ-A9jcT9jY3C_KxSQ/exec";
 // ናትካ ImgBB API Key
-const imgbbKey = "YOUR_IMGBB_API_KEY_HERE"; 
+const imgbbKey = "470e18bf524a4e7396d4002569e54083"; 
 let selectedRoom = "";
 
 // 2. ሞዳል ንምኽፋት (Open Modal)
@@ -78,11 +78,11 @@ async function checkRoomAvailability() {
     }
 }
 
-// 5. ምሉእ ምዝገባ ንምልኣኽ (Submit Booking)
+// 5. ምሉእ ምዝገባ ንምልኣኽ (Submit Booking - FULLY FIXED)
 async function submitBooking(event) {
     event.preventDefault(); // ፎርም ብባዕሉ ሪፈረሽ ንከይገብር
 
-    // reCAPTCHA ምርግጋጽ (ሰብ ምዃኑ ንምፍላጥ)
+    // reCAPTCHA ምርግጋጽ
     const captchaResponse = grecaptcha.getResponse();
     if (captchaResponse.length === 0) {
         alert("በጃኻ 'I am not a robot' ዝብል ምልክት ግበር!");
@@ -94,7 +94,7 @@ async function submitBooking(event) {
     const submitBtn = document.getElementById("submitBtn");
     const receiptFile = document.getElementById("receiptImage").files[0];
 
-    // Loading State: ዓሚል ዳታ ይለኣኽ ከምዘሎ ንክፈልጥ
+    // Loading State
     btnText.innerText = "ምስሊ ይስቀል ኣሎ (Uploading image)..."; 
     if (spinner) spinner.style.display = "inline-block";
     submitBtn.disabled = true;
@@ -117,35 +117,44 @@ async function submitBooking(event) {
 
         btnText.innerText = "ዳታ ይለኣኽ ኣሎ (Sending data)...";
 
-        // ለ. ኩሉ ዳታ (ስልኪ ሓዊሱ) ንምድላው
-        const bookingData = {
-            action: "newBooking", // Backend ንክፈልጦ
-            name: document.getElementById("name").value,
-            email: document.getElementById("customerEmail").value,
-            phone: document.getElementById("phoneNumber").value, // *** ተወሳኺ ቁጽሪ ስልኪ ***
-            room: selectedRoom,
-            checkIn: document.getElementById("checkIn").value,
-            checkOut: document.getElementById("checkOut").value,
-            receipt: receiptUrl 
-        };
+        // ለ. እቲ ዳታ ምስቲ Apps Script ንጹር መታን ክኸውን URL Search Params ንጥቀም
+        const urlParams = new URLSearchParams();
+        urlParams.append("action", "newBooking");
+        urlParams.append("name", document.getElementById("name").value);
+        urlParams.append("email", document.getElementById("customerEmail").value);
+        urlParams.append("phone", document.getElementById("phoneNumber").value);
+        urlParams.append("room", selectedRoom);
+        urlParams.append("receipt", receiptUrl);
+        urlParams.append("checkIn", document.getElementById("checkIn").value);
+        urlParams.append("checkOut", document.getElementById("checkOut").value);
 
         // ሐ. ናብ Google Script ምስዳድ (POST request)
         await fetch(SCRIPT_URL, {
             method: "POST",
-            mode: "no-cors", // CORS ጸገም ንከይመጽእ
-            body: JSON.stringify(bookingData)
+            mode: "no-cors", 
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: urlParams.toString() // ዳታ ብንጹር መስመር ይኸይድ
         });
 
+        if (currentLang === "ti") {
         alert("እንቋዕ ሓጎሰካ! ምዝገባኹምን ሪሲትኩምን ብትኽክል ተላኢኹ ኣሎ!");
-        
+        } else {
+        alert("Congratulations! Your booking and receipt have been submitted successfully!");
+         }
+
         // ኩሉ Reset ምግባርን ሞዳል ምዕጻውን
         closeBox(); 
 
     } catch (error) {
         console.error("Error:", error);
-        alert("ጌጋ ተፈጢሩ፡ በጃኹም ኢንተርነትኩም ኣረጋግጹ።");
-    } finally {
-        // ኩሉ ምስ ተዛዘመ ነቲ Button ናብ ዝነበሮ ምምላስ
+      if (currentLang === "ti") {
+        alert("An error occurred. Please check your internet connection.");
+    } else {
+        alert("Congratulations! Your booking and receipt have been submitted successfully!");
+         }
+    finally {
         if (spinner) spinner.style.display = "none";
         btnText.innerText = "Confirm Booking";
         submitBtn.disabled = false;
