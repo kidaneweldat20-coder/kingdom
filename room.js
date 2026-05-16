@@ -1,6 +1,6 @@
 // 1. ቀንዲ መለለዪታት (Configuration)
 // ናትካ Google Apps Script URL
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxySwaR6zkmTedIuFIrTCp9eLy4Opy5oBmqrnrTWDfFyrD8zvA3s_411jmWfuAM4pJhbA/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxET7X5eFqm1IxtbcR36YkJhtpeIBDrV-qNow4d3vo4UGru7wULWZ-A9jcT9jY3C_KxSQ/exec";
 // ናትካ ImgBB API Key
 const imgbbKey = "YOUR_IMGBB_API_KEY_HERE"; 
 let selectedRoom = "";
