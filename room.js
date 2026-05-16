@@ -1,17 +1,21 @@
 // 1. ቀንዲ መለለዪታት (Configuration)
+// ናትካ Google Apps Script URL
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxySwaR6zkmTedIuFIrTCp9eLy4Opy5oBmqrnrTWDfFyrD8zvA3s_411jmWfuAM4pJhbA/exec";
+// ናትካ ImgBB API Key
+const imgbbKey = "YOUR_IMGBB_API_KEY_HERE"; 
 let selectedRoom = "";
 
 // 2. ሞዳል ንምኽፋት (Open Modal)
 function bookRoom(room) {
     selectedRoom = room;
     const isTigrinya = document.documentElement.lang === 'ti';
+    // ዓይነት ክፍሊ ኣብቲ ኣርእስቲ ንምጽሓፍ
     document.getElementById("roomTitle").innerText = isTigrinya ? "ምዝገባ: " + room : "Booking: " + room;
     
-    // ሞዳል ንምርኣይ (flex ትጥቀም ስለዘለኻ)
+    // ሞዳል ንምርኣይ
     document.getElementById("modalOverlay").style.display = "flex";
     
-    // ዕለታት ካብ ሎሚ ንድሕሪት ንከይኸዱ
+    // ዕለታት ካብ ሎሚ ንድሕሪት ንከይኸዱ (Disable past dates)
     const today = new Date().toISOString().split('T')[0];
     document.getElementById("checkIn").setAttribute('min', today);
     document.getElementById("checkOut").setAttribute('min', today);
@@ -23,13 +27,13 @@ function closeBox() {
     const status = document.getElementById("availabilityStatus");
     const modal = document.getElementById('modalOverlay');
 
-    // ፎርም ባዶ ንምግባር
+    // ፎርም ኩሉ ዳታኡ ባዶ ንምግባር
     if (bookingForm) bookingForm.reset(); 
     
-    // reCAPTCHA ንምሕዳስ
+    // reCAPTCHA ንምሕዳስ (Refresh)
     if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
 
-    // ጽሑፍ ምርግጋጽ ንምድምሳስ
+    // ናይ ምርግጋጽ መልእኽቲ ንምድምሳስ
     if (status) status.innerText = "";
 
     // ሞዳል ንምዕጻው
@@ -44,6 +48,7 @@ async function checkRoomAvailability() {
     const status = document.getElementById("availabilityStatus");
     const submitBtn = document.getElementById("submitBtn");
 
+    // ዕለታት እንተዘይተመሊኦም መጠንቀቕታ ንምሃብ
     if (!checkIn || !checkOut) {
         status.innerText = "በጃኹም ዕለታት ምልኡ (Please select dates)";
         status.style.color = "red";
@@ -54,17 +59,18 @@ async function checkRoomAvailability() {
     status.style.color = "orange";
 
     try {
-        const response = await fetch(`${SCRIPT_URL}?room=${room}&checkIn=${checkIn}&checkOut=${checkOut}`);
+        // ናብ Backend (GET request) ብምልኣኽ ትርፊ ክፍሊ እንተሃሊዩ ምርኣይ
+        const response = await fetch(`${SCRIPT_URL}?room=${encodeURIComponent(room)}&checkIn=${checkIn}&checkOut=${checkOut}`);
         const result = await response.json();
 
         if (result.available) {
-            status.innerText = `✅ (available) ክፍሊ ኣሎ! (${result.remaining} ተሪፎም)`;
+            status.innerText = `✅ ክፍሊ ኣሎ! (Available: ${result.remaining} rooms left)`;
             status.style.color = "green";
-            submitBtn.disabled = false; 
+            submitBtn.disabled = false; // ምዝገባ ንክፍቀድ
         } else {
             status.innerText = "❌ ይቕሬታ፡ በቲ ዝሓረኹምዎ ዕለት ክፍሊ የለን (Full)";
             status.style.color = "red";
-            submitBtn.disabled = true; 
+            submitBtn.disabled = true; // ምዝገባ ንከይፍቀድ
         }
     } catch (error) {
         status.innerText = "ጌጋ ተፈጢሩ፡ ኢንተርነትኩም ኣረጋግጹ።";
@@ -74,9 +80,9 @@ async function checkRoomAvailability() {
 
 // 5. ምሉእ ምዝገባ ንምልኣኽ (Submit Booking)
 async function submitBooking(event) {
-    event.preventDefault(); // ፎርም ባዕሉ ንከይኸይድ
+    event.preventDefault(); // ፎርም ብባዕሉ ሪፈረሽ ንከይገብር
 
-    // reCAPTCHA ምርግጋጽ
+    // reCAPTCHA ምርግጋጽ (ሰብ ምዃኑ ንምፍላጥ)
     const captchaResponse = grecaptcha.getResponse();
     if (captchaResponse.length === 0) {
         alert("በጃኻ 'I am not a robot' ዝብል ምልክት ግበር!");
@@ -87,18 +93,16 @@ async function submitBooking(event) {
     const spinner = document.getElementById("spinner");
     const submitBtn = document.getElementById("submitBtn");
     const receiptFile = document.getElementById("receiptImage").files[0];
-    const bookingForm = document.getElementById("bookingForm");
-    const status = document.getElementById("availabilityStatus");
 
-    // Loading State (ምጅማር)
-    btnText.innerText = "ምስሊ ይስቀል ኣሎ..."; 
+    // Loading State: ዓሚል ዳታ ይለኣኽ ከምዘሎ ንክፈልጥ
+    btnText.innerText = "ምስሊ ይስቀል ኣሎ (Uploading image)..."; 
     if (spinner) spinner.style.display = "inline-block";
     submitBtn.disabled = true;
 
     try {
         let receiptUrl = "No Image";
 
-        // ምስሊ ናብ ImgBB ምስቃል
+        // ሀ. ምስሊ ሪሲት ናብ ImgBB ምስቃል
         if (receiptFile) {
             const formData = new FormData();
             formData.append("image", receiptFile);
@@ -111,34 +115,37 @@ async function submitBooking(event) {
             if (imgData.success) receiptUrl = imgData.data.url; 
         }
 
-        btnText.innerText = "ዳታ ይለኣኽ ኣሎ...";
+        btnText.innerText = "ዳታ ይለኣኽ ኣሎ (Sending data)...";
 
-        // ዳታ ምድላው
+        // ለ. ኩሉ ዳታ (ስልኪ ሓዊሱ) ንምድላው
         const bookingData = {
+            action: "newBooking", // Backend ንክፈልጦ
             name: document.getElementById("name").value,
             email: document.getElementById("customerEmail").value,
+            phone: document.getElementById("phoneNumber").value, // *** ተወሳኺ ቁጽሪ ስልኪ ***
             room: selectedRoom,
             checkIn: document.getElementById("checkIn").value,
             checkOut: document.getElementById("checkOut").value,
             receipt: receiptUrl 
         };
 
-        // ናብ Google Script ምስዳድ
+        // ሐ. ናብ Google Script ምስዳድ (POST request)
         await fetch(SCRIPT_URL, {
             method: "POST",
-            mode: "no-cors",
+            mode: "no-cors", // CORS ጸገም ንከይመጽእ
             body: JSON.stringify(bookingData)
         });
 
         alert("እንቋዕ ሓጎሰካ! ምዝገባኹምን ሪሲትኩምን ብትኽክል ተላኢኹ ኣሎ!");
         
-        // ኩሉ Reset ምግባር
+        // ኩሉ Reset ምግባርን ሞዳል ምዕጻውን
         closeBox(); 
 
     } catch (error) {
         console.error("Error:", error);
         alert("ጌጋ ተፈጢሩ፡ በጃኹም ኢንተርነትኩም ኣረጋግጹ።");
     } finally {
+        // ኩሉ ምስ ተዛዘመ ነቲ Button ናብ ዝነበሮ ምምላስ
         if (spinner) spinner.style.display = "none";
         btnText.innerText = "Confirm Booking";
         submitBtn.disabled = false;
