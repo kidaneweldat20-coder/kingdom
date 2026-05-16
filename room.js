@@ -1,21 +1,21 @@
 // 1. ቀንዲ መለለዪታት (Configuration)
-// ናትካ Google Apps Script URL
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxET7X5eFqm1IxtbcR36YkJhtpeIBDrV-qNow4d3vo4UGru7wULWZ-A9jcT9jY3C_KxSQ/exec";
-// ናትካ ImgBB API Key
 const imgbbKey = "470e18bf524a4e7396d4002569e54083"; 
 let selectedRoom = "";
+
+// ቋንቋ ካብቲ ናይ HTML Tag ብቐጥታ ንምውሳድ (Automatic language detection)
+function getCurrentLang() {
+    return document.documentElement.lang || "en";
+}
 
 // 2. ሞዳል ንምኽፋት (Open Modal)
 function bookRoom(room) {
     selectedRoom = room;
-    const isTigrinya = document.documentElement.lang === 'ti';
-    // ዓይነት ክፍሊ ኣብቲ ኣርእስቲ ንምጽሓፍ
+    const isTigrinya = getCurrentLang() === 'ti';
     document.getElementById("roomTitle").innerText = isTigrinya ? "ምዝገባ: " + room : "Booking: " + room;
     
-    // ሞዳል ንምርኣይ
     document.getElementById("modalOverlay").style.display = "flex";
     
-    // ዕለታት ካብ ሎሚ ንድሕሪት ንከይኸዱ (Disable past dates)
     const today = new Date().toISOString().split('T')[0];
     document.getElementById("checkIn").setAttribute('min', today);
     document.getElementById("checkOut").setAttribute('min', today);
@@ -27,16 +27,9 @@ function closeBox() {
     const status = document.getElementById("availabilityStatus");
     const modal = document.getElementById('modalOverlay');
 
-    // ፎርም ኩሉ ዳታኡ ባዶ ንምግባር
     if (bookingForm) bookingForm.reset(); 
-    
-    // reCAPTCHA ንምሕዳስ (Refresh)
     if (typeof grecaptcha !== 'undefined') grecaptcha.reset();
-
-    // ናይ ምርግጋጽ መልእኽቲ ንምድምሳስ
     if (status) status.innerText = "";
-
-    // ሞዳል ንምዕጻው
     if (modal) modal.style.display = 'none';
 }
 
@@ -48,7 +41,6 @@ async function checkRoomAvailability() {
     const status = document.getElementById("availabilityStatus");
     const submitBtn = document.getElementById("submitBtn");
 
-    // ዕለታት እንተዘይተመሊኦም መጠንቀቕታ ንምሃብ
     if (!checkIn || !checkOut) {
         status.innerText = "በጃኹም ዕለታት ምልኡ (Please select dates)";
         status.style.color = "red";
@@ -59,43 +51,46 @@ async function checkRoomAvailability() {
     status.style.color = "orange";
 
     try {
-        // ናብ Backend (GET request) ብምልኣኽ ትርፊ ክፍሊ እንተሃሊዩ ምርኣይ
         const response = await fetch(`${SCRIPT_URL}?room=${encodeURIComponent(room)}&checkIn=${checkIn}&checkOut=${checkOut}`);
         const result = await response.json();
 
         if (result.available) {
             status.innerText = `✅ ክፍሊ ኣሎ! (Available: ${result.remaining} rooms left)`;
             status.style.color = "green";
-            submitBtn.disabled = false; // ምዝገባ ንክፍቀድ
+            submitBtn.disabled = false; 
         } else {
             status.innerText = "❌ ይቕሬታ፡ በቲ ዝሓረኹምዎ ዕለት ክፍሊ የለን (Full)";
             status.style.color = "red";
-            submitBtn.disabled = true; // ምዝገባ ንከይፍቀድ
+            submitBtn.disabled = true; 
         }
     } catch (error) {
-        status.innerText = "ጌጋ ተፈጢሩ፡ ኢንተርነትኩም ኣረጋግጹ።";
+        status.innerText = getCurrentLang() === "ti" ? "ጌጋ ተፈጢሩ፡ ኢንተርነትኩም ኣረጋግጹ።" : "An error occurred. Please check your internet connection.";
+        status.style.color = "red";
         console.error(error);
     }
 }
 
-// 5. ምሉእ ምዝገባ ንምልኣኽ (Submit Booking - FULLY FIXED)
+// 5. ምሉእ ምዝገባ ንምልኣኽ (Submit Booking)
 async function submitBooking(event) {
-    event.preventDefault(); // ፎርም ብባዕሉ ሪፈረሽ ንከይገብር
+    event.preventDefault(); 
 
     // reCAPTCHA ምርግጋጽ
-    const captchaResponse = grecaptcha.getResponse();
-    if (captchaResponse.length === 0) {
-        alert("በጃኻ 'I am not a robot' ዝብል ምልክት ግበር!");
-        return;
+    if (typeof grecaptcha !== 'undefined') {
+        const captchaResponse = grecaptcha.getResponse();
+        if (captchaResponse.length === 0) {
+            alert(getCurrentLang() === "ti" ? "በጃኻ 'I am not a robot' ዝብል ምልክት ግበር!" : "Please check 'I am not a robot'!");
+            return;
+        }
     }
     
     const btnText = document.getElementById("btnText");
     const spinner = document.getElementById("spinner");
     const submitBtn = document.getElementById("submitBtn");
     const receiptFile = document.getElementById("receiptImage").files[0];
+    const currentLang = getCurrentLang();
 
     // Loading State
-    btnText.innerText = "ምስሊ ይስቀል ኣሎ (Uploading image)..."; 
+    btnText.innerText = currentLang === "ti" ? "ምስሊ ይስቀል ኣሎ..." : "Uploading image..."; 
     if (spinner) spinner.style.display = "inline-block";
     submitBtn.disabled = true;
 
@@ -115,9 +110,9 @@ async function submitBooking(event) {
             if (imgData.success) receiptUrl = imgData.data.url; 
         }
 
-        btnText.innerText = "ዳታ ይለኣኽ ኣሎ (Sending data)...";
+        btnText.innerText = currentLang === "ti" ? "ዳታ ይለኣኽ ኣሎ..." : "Sending data...";
 
-        // ለ. እቲ ዳታ ምስቲ Apps Script ንጹር መታን ክኸውን URL Search Params ንጥቀም
+        // ለ. URL Search Params 
         const urlParams = new URLSearchParams();
         urlParams.append("action", "newBooking");
         urlParams.append("name", document.getElementById("name").value);
@@ -128,35 +123,36 @@ async function submitBooking(event) {
         urlParams.append("checkIn", document.getElementById("checkIn").value);
         urlParams.append("checkOut", document.getElementById("checkOut").value);
 
-        // ሐ. ናብ Google Script ምስዳድ (POST request)
+        // ሐ. ናብ Google Script ምስዳድ
         await fetch(SCRIPT_URL, {
             method: "POST",
             mode: "no-cors", 
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
             },
-            body: urlParams.toString() // ዳታ ብንጹር መስመር ይኸይድ
+            body: urlParams.toString() 
         });
 
+        // ዓወት መልእኽቲ
         if (currentLang === "ti") {
-        alert("እንቋዕ ሓጎሰካ! ምዝገባኹምን ሪሲትኩምን ብትኽክል ተላኢኹ ኣሎ!");
+            alert("እንቋዕ ሓጎሰካ! ምዝገባኹምን ሪሲትኩምን ብትኽክል ተላኢኹ ኣሎ!");
         } else {
-        alert("Congratulations! Your booking and receipt have been submitted successfully!");
-         }
+            alert("Congratulations! Your booking and receipt have been submitted successfully!");
+        }
 
-        // ኩሉ Reset ምግባርን ሞዳል ምዕጻውን
         closeBox(); 
 
     } catch (error) {
         console.error("Error:", error);
-      if (currentLang === "ti") {
-        alert("An error occurred. Please check your internet connection.");
-    } else {
-        alert("Congratulations! Your booking and receipt have been submitted successfully!");
-         }
-    finally {
+        // ጌጋ መልእኽቲ
+        if (currentLang === "ti") {
+            alert("ጌጋ ተፈጢሩ፡ በጃኹም ኢንተርነትኩም ኣረጋግጹ።");
+        } else {
+            alert("An error occurred. Please check your internet connection.");
+        }
+    } finally {
         if (spinner) spinner.style.display = "none";
-        btnText.innerText = "Confirm Booking";
+        btnText.innerText = currentLang === "ti" ? "ምዝገባ ኣረጋግጽ" : "Confirm Booking";
         submitBtn.disabled = false;
     }
 }
@@ -165,6 +161,6 @@ async function submitBooking(event) {
 function toggleMenu() {
     const navLinks = document.getElementById("navLinks");
     const menuIcon = document.getElementById("menuIcon");
-    navLinks.classList.toggle("active");
-    menuIcon.classList.toggle("active");
+    if (navLinks) navLinks.classList.toggle("active");
+    if (menuIcon) menuIcon.classList.toggle("active");
 }
