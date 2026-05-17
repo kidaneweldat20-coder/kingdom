@@ -1,7 +1,7 @@
 // ==========================================================================
 // 1. ቀንዲ መለለዪታት (Configuration)
 // ==========================================================================
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxET7X5eFqm1IxtbcR36YkJhtpeIBDrV-qNow4d3vo4UGru7wULWZ-A9jcT9jY3C_KxSQ/exec";
+const SCRIPT_URL = "‎https://script.google.com/macros/s/AKfycbxET7X5eFqm1IxtbcR36YkJhtpeIBDrV-qNow4d3vo4UGru7wULWZ-A9jcT9jY3C_KxSQ/exec";
 const imgbbKey = "470e18bf524a4e7396d4002569e54083"; 
 let selectedRoom = "";
 
