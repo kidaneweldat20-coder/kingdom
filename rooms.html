@@ -134,8 +134,24 @@
   <i class="fas fa-calendar-check"></i> Check Availability (ትርፊ ምዃኑ አረጋግጽ)
 </button>
 
-<!-- መልእኽቲ ዝመሓላለፈሉ ቦታ -->
 <p id="availabilityStatus"></p>
+
+<div id="priceSummaryBox" style="display: none; background: #eef5fc; border-left: 5px solid #1a2a44; padding: 15px; border-radius: 6px; margin: 15px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+    <h4 style="margin: 0 0 10px 0; color: #1a2a44;"><i class="fas fa-calculator"></i> Invoice Details (ዝርዝር ሒሳብ)</h4>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.95rem;">
+        <span id="labelDays" style="color:#555;">Total Days:</span>
+        <span style="font-weight: bold; color: #1a2a44;"><span id="displayDays">0</span> Days</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.95rem; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">
+        <span id="labelRate" style="color:#555;">Rate per Night:</span>
+        <span style="font-weight: bold; color: #1a2a44;"><span id="displayRate">0</span> ETB</span>
+    </div>
+    <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: bold;">
+        <span id="labelTotal" style="color: #B8860B;">Total Payment:</span>
+        <span style="color: #28a745;"><span id="displayTotal">0</span> ETB</span>
+    </div>
+</div>
+
       <!-- Payment Info -->
 <div class="payment-info">
     <h4 data-key="pay_instruct">
@@ -216,6 +232,14 @@
     &copy; 2026 Kingdom Hotel. All rights reserved.
   </div>
 </footer>
+<div id="clientAlert" class="client-custom-alert hidden">
+    <div class="client-alert-content">
+        <i id="clientAlertIcon" class="fas fa-info-circle client-alert-icon"></i>
+        <p id="clientAlertMessage">መልእኽቲ...</p>
+        <button onclick="closeClientAlert()" class="client-alert-btn">እሺ (OK)</button>
+    </div>
+</div>
+
 <script src="lang.js"></script>
 <script src="room.js"></script>
 <script src="script.js"></script>

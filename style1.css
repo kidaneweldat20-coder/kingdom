@@ -940,6 +940,89 @@ footer {
     color: #ff0000; /* ናብ ቀይሕ ይቀየር */
     transform: scale(1.2); /* ቁሩብ ይዕበ */
 }
+/* 👑 Kingdom Hotel - Custom Client Alert Popup */
+.client-custom-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65); /* ጸልማት ድሕረባይታ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999; /* ካብ ኩሉ ንላዕሊ ንክኸውን */
+    opacity: 1;
+    backdrop-filter: blur(4px);
+    transition: opacity 0.3s ease;
+}
+
+.client-custom-alert.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.client-alert-content {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    max-width: 420px;
+    width: 85%;
+    border-top: 5px solid var(--primary, #359); /* ናይ ሆቴልኩም ቀንዲ ሕብሪ */
+    animation: alertPopIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.client-alert-icon {
+    font-size: 55px;
+    color: var(--primary, #359);
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* እንተድኣ ጌጋ ኾይኑ ሕብሪ ምልክት ናብ ቀይሕ ንምቕያር */
+.client-alert-icon.error-icon {
+    color: #e53935;
+}
+
+/* እንተድኣ ናይ ዓወት ኾይኑ ሕብሪ ምልክት ናብ ወርቃዊ/ሓምላይ ንምቕያር */
+.client-alert-icon.success-icon {
+    color: #4caf50;
+}
+
+.client-alert-content p {
+    font-size: 17px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 22px;
+    line-height: 1.6;
+}
+
+.client-alert-btn {
+    background: var(--primary, #359);
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    font-size: 15px;
+    border-radius: 30px; /* ክቢ ቁልፊ */
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(51, 85, 153, 0.2);
+}
+
+.client-alert-btn:hover {
+    background: #2a4477;
+    transform: translateY(-2px);
+}
+
+/* 🎬 ናይ ምኽፋት ኣኒሜሽን */
+@keyframes alertPopIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
 
 /* ============================================================
    9. ANIMATIONS
