@@ -148,7 +148,7 @@ async function checkRoomAvailability() {
 }
 
 // ==========================================================================
-// 5. ምሉእ ምዝገባ ንምልኣኽ (Submit Booking - WITH CUSTOM ALERT CSS)
+// 5. ምሉእ ምዝገባ ንምልኣኽ (Submit Booking - FIXED API URL)
 // ==========================================================================
 async function submitBooking(event) {
     event.preventDefault(); 
@@ -158,7 +158,6 @@ async function submitBooking(event) {
     if (typeof grecaptcha !== 'undefined') {
         const captchaResponse = grecaptcha.getResponse();
         if (captchaResponse.length === 0) {
-            // 🛠️ ቀደም alert() ዝነበረት (ሕጂ ዘበናዊት ጌጋ ሳጹን)
             showClientAlert(
                 isTi ? "በጃኻ 'I am not a robot' ዝብል ምልክት ግበር!" : "Please check 'I am not a robot'!", 
                 "error"
@@ -183,12 +182,20 @@ async function submitBooking(event) {
             const formData = new FormData();
             formData.append("image", receiptFile);
             
-            const imgRes = await fetch(`https://api.api.imgbb.com/1/upload?key=${imgbbKey}`, {
+            // 🛠️ ቪክስ (FIXED): እታ 'api.api.imgbb.com' ዝነበረት ናብ 'api.imgbb.com' ተስተኻኺላ ኣላ!
+            const imgRes = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, {
                 method: "POST",
                 body: formData
             });
+            
+            if (!imgRes.ok) throw new Error("Image upload failed");
+            
             const imgData = await imgRes.json();
-            if (imgData.success) receiptUrl = imgData.data.url; 
+            if (imgData.success) {
+                receiptUrl = imgData.data.url; 
+            } else {
+                throw new Error("ImgBB conversion failed");
+            }
         }
 
         btnText.innerText = isTi ? "ዳታ ይለኣኽ ኣሎ..." : "Sending data...";
@@ -203,14 +210,15 @@ async function submitBooking(event) {
         urlParams.append("checkIn", document.getElementById("checkIn").value);
         urlParams.append("checkOut", document.getElementById("checkOut").value);
 
-        await fetch(SCRIPT_URL, {
+        // ዳታ ብ POST ንምልኣኽ
+        const response = await fetch(SCRIPT_URL, {
             method: "POST",
             mode: "no-cors", 
             headers: { "Content-Type": "application/x-www-form-urlencoded" },
             body: urlParams.toString() 
         });
 
-        // 🛠️ ቀደም alert() ዝነበረት (ሕጂ ዘበናዊት ናይ ዓወት ሳጹን)
+        // 🛠️ ናይ ዓወት መልእኽቲ
         showClientAlert(
             isTi ? "እንቋዕ ሓጎሰካ! ምዝገባኹምን ሪሲትኩምን ብትኽክል ተላኢኹ ኣሎ!" : "Congratulations! Your booking and receipt have been submitted successfully!", 
             "success"
@@ -219,10 +227,10 @@ async function submitBooking(event) {
         closeBox(); 
 
     } catch (error) {
-        console.error("Error:", error);
-        // 🛠️ ቀደም alert() ዝነበረት (ሕጂ ዘበናዊት ናይ ጌጋ ሳጹን)
+        console.error("Error Detail:", error);
+        // 🛠️ ናይ ጌጋ መልእኽቲ
         showClientAlert(
-            isTi ? "ጌጋ ተፈጢሩ፡ በጃኹም ኢንተርነትኩም ኣረጋግጹ።" : "An error occurred. Please check your internet connection.", 
+            isTi ? "⚠️ ጌጋ ተፈጢሩ፡ በጃኹም ኢንተርነትኩም ወይ ናይ ሪሲት ምስሊ ኣረጋግጹ።" : "⚠️ An error occurred. Please check your internet connection or receipt image.", 
             "error"
         );
     } finally {
