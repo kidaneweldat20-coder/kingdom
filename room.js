@@ -1,7 +1,8 @@
 // ==========================================================================
-// 1. ቀንዲ መለለዪታት (Configuration)
+// 1. ቀንዲ መለለዪታት (Configuration - FIXED INVISIBLE CHARACTER ERROR)
 // ==========================================================================
-const SCRIPT_URL = "‎https://script.google.com/macros/s/AKfycbxET7X5eFqm1IxtbcR36YkJhtpeIBDrV-qNow4d3vo4UGru7wULWZ-A9jcT9jY3C_KxSQ/exec";
+// 🛠️ ቪክስ: እቲ ሊንክ ቅድሚ 'https' ዝነበሮ ዘይረአ ፊደል ተኣልዩ ጽፉፍ ኰይኑ ኣሎ!
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxET7X5eFqm1IxtbcR36YkJhtpeIBDrV-qNow4d3vo4UGru7wULWZ-A9jcT9jY3C_KxSQ/exec";
 const imgbbKey = "470e18bf524a4e7396d4002569e54083"; 
 let selectedRoom = "";
 
@@ -38,20 +39,22 @@ function bookRoom(room) {
     
     // መጀመርታ ኩሉ Reset ንምግባር
     if (submitBtn) submitBtn.disabled = true;
-    if (priceBox) priceBox.style.display = "none"; // እቲ ናይ ዋጋ ሳጹን መጀመርታ ይሕባእ
+    if (priceBox) priceBox.style.display = "none"; 
 
-    // ዕለታት እንተቀይሩ እንደገና ክፈትሽ ዋጋን ቡተንን Reset ይግበሩ
+    // ዕለታት እንተቀይሩ እንደገና ክፈ特ሽ ዋጋን ቡተንን Reset ይግበሩ
     checkInInput.addEventListener('change', function() {
         if (this.value) {
             checkOutInput.setAttribute('min', this.value);
             if (submitBtn) submitBtn.disabled = true; 
             if (priceBox) priceBox.style.display = "none";
+            document.getElementById("availabilityStatus").innerText = ""; // Reset status text
         }
     });
     
     checkOutInput.addEventListener('change', function() {
         if (submitBtn) submitBtn.disabled = true;
         if (priceBox) priceBox.style.display = "none";
+        document.getElementById("availabilityStatus").innerText = ""; // Reset status text
     });
 }
 
@@ -107,7 +110,9 @@ async function checkRoomAvailability() {
     status.style.color = "orange";
 
     try {
-        const response = await fetch(`${SCRIPT_URL}?room=${encodeURIComponent(room)}&checkIn=${checkIn}&checkOut=${checkOut}`);
+        // 🛠️ ፎርማት ፍጹም ጽፉፍ ኰይኑ ናብ Apps Script ይለኣኽ ኣሎ
+        const finalUrl = `${SCRIPT_URL}?room=${encodeURIComponent(room)}&checkIn=${checkIn}&checkOut=${checkOut}`;
+        const response = await fetch(finalUrl);
         const result = await response.json();
 
         if (result.available) {
@@ -118,21 +123,19 @@ async function checkRoomAvailability() {
             const pricePerNight = ROOM_PRICES[room] || 0;
             const totalPrice = pricePerNight * diffDays;
 
-            // ነቲ HTML ሳጹን ብምስሊ ምውላዕ (Show Price Box Popup)
             if (priceBox) {
                 document.getElementById("displayDays").innerText = diffDays;
                 document.getElementById("displayRate").innerText = pricePerNight.toLocaleString();
                 document.getElementById("displayTotal").innerText = totalPrice.toLocaleString();
                 
-                // ቋንቋ ጽሑፍ ሳጹን ምቕያር
                 document.getElementById("labelDays").innerText = isTi ? "ጠቕላላ መዓልታት (Total Days):" : "Total Days:";
                 document.getElementById("labelRate").innerText = isTi ? "ዋጋ ንሓደ ለይቲ (Rate per Night):" : "Rate per Night:";
                 document.getElementById("labelTotal").innerText = isTi ? "💲 ጠቕላላ ክፍሊት (Total Payment):" : "💲 Total Payment:";
                 
-                priceBox.style.display = "block"; // ምርኣይ
+                priceBox.style.display = "block"; 
             }
 
-            if (submitBtn) submitBtn.disabled = false; // ሕጂ ምዝገባ ይፍቀድ
+            if (submitBtn) submitBtn.disabled = false; 
         } else {
             status.innerText = isTi ? "❌ ይቕሬታ፡ በቲ ዝሓረኹምዎ ዕለት እዚ ክፍሊ ሙሉእ እዩ!" : "❌ Sorry, this room type is fully booked for the selected dates!";
             status.style.color = "red";
@@ -143,12 +146,12 @@ async function checkRoomAvailability() {
         status.innerText = isTi ? "⚠️ ጌጋ ተፈጢሩ፡ ኢንተርነትኩም ኣረጋግጹ።" : "⚠️ An error occurred. Please check your internet connection.";
         status.style.color = "red";
         if (priceBox) priceBox.style.display = "none";
-        console.error(error);
+        console.error("Fetch Error Detail:", error);
     }
 }
 
 // ==========================================================================
-// 5. ምሉእ ምዝገባ ንምልኣኽ (Submit Booking - FIXED API URL)
+// 5. ምሉእ ምዝገባ ንምልኣኽ (Submit Booking)
 // ==========================================================================
 async function submitBooking(event) {
     event.preventDefault(); 
@@ -182,7 +185,6 @@ async function submitBooking(event) {
             const formData = new FormData();
             formData.append("image", receiptFile);
             
-            // 🛠️ ቪክስ (FIXED): እታ 'api.api.imgbb.com' ዝነበረት ናብ 'api.imgbb.com' ተስተኻኺላ ኣላ!
             const imgRes = await fetch(`https://api.imgbb.com/1/upload?key=${imgbbKey}`, {
                 method: "POST",
                 body: formData
@@ -201,7 +203,7 @@ async function submitBooking(event) {
         btnText.innerText = isTi ? "ዳታ ይለኣኽ ኣሎ..." : "Sending data...";
 
         const urlParams = new URLSearchParams();
-        urlParams.append("action", "newBooking");
+        // 🛠️ ቪክስ: እቲ 'action' ንሓድሽ ምዝገባ ስለ ዘየድሊ ተኣልዩ ኣሎ ንጽረትን ውሕስነትን Backend
         urlParams.append("name", document.getElementById("name").value);
         urlParams.append("email", document.getElementById("customerEmail").value);
         urlParams.append("phone", document.getElementById("phoneNumber").value);
@@ -210,7 +212,6 @@ async function submitBooking(event) {
         urlParams.append("checkIn", document.getElementById("checkIn").value);
         urlParams.append("checkOut", document.getElementById("checkOut").value);
 
-        // ዳታ ብ POST ንምልኣኽ
         const response = await fetch(SCRIPT_URL, {
             method: "POST",
             mode: "no-cors", 
@@ -218,7 +219,6 @@ async function submitBooking(event) {
             body: urlParams.toString() 
         });
 
-        // 🛠️ ናይ ዓወት መልእኽቲ
         showClientAlert(
             isTi ? "እንቋዕ ሓጎሰካ! ምዝገባኹምን ሪሲትኩምን ብትኽክል ተላኢኹ ኣሎ!" : "Congratulations! Your booking and receipt have been submitted successfully!", 
             "success"
@@ -228,7 +228,6 @@ async function submitBooking(event) {
 
     } catch (error) {
         console.error("Error Detail:", error);
-        // 🛠️ ናይ ጌጋ መልእኽቲ
         showClientAlert(
             isTi ? "⚠️ ጌጋ ተፈጢሩ፡ በጃኹም ኢንተርነትኩም ወይ ናይ ሪሲት ምስሊ ኣረጋግጹ።" : "⚠️ An error occurred. Please check your internet connection or receipt image.", 
             "error"
@@ -249,7 +248,7 @@ function toggleMenu() {
     if (navLinks) navLinks.classList.toggle("active");
     if (menuIcon) menuIcon.classList.toggle("active");
 }
-// 🔔 ነቲ ሓድሽ ዘበናዊ ሳጹን ንምክፋት (ዓይነት: 'success', 'error', 'info')
+
 function showClientAlert(message, type = "info") {
     const alertBox = document.getElementById("clientAlert");
     const alertMsg = document.getElementById("clientAlertMessage");
@@ -258,11 +257,8 @@ function showClientAlert(message, type = "info") {
     if (!alertBox || !alertMsg || !alertIcon) return;
     
     alertMsg.innerText = message;
-    
-    // ንኹሉ ናይ ቀደም ክላሳት ክሊን ንምግባር
     alertIcon.className = "fas client-alert-icon";
     
-    // ብመሰረት ዝመጸና ታይፕ ስታይልን ኣይኮንን ምቕያር
     if (type === "success") {
         alertIcon.classList.add("fa-check-circle", "success-icon");
     } else if (type === "error") {
@@ -274,7 +270,6 @@ function showClientAlert(message, type = "info") {
     alertBox.classList.remove("hidden");
 }
 
-// ❌ ነቲ ሳጹን ንምዕጻው
 function closeClientAlert() {
     const alertBox = document.getElementById("clientAlert");
     if (alertBox) {
