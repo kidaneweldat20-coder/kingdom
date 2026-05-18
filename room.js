@@ -2,7 +2,7 @@
 // 1. ቀንዲ መለለዪታት (Configuration - FIXED INVISIBLE CHARACTER ERROR)
 // ==========================================================================
 // 🛠️ ቪክስ: እቲ ሊንክ ቅድሚ 'https' ዝነበሮ ዘይረአ ፊደል ተኣልዩ ጽፉፍ ኰይኑ ኣሎ!
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxET7X5eFqm1IxtbcR36YkJhtpeIBDrV-qNow4d3vo4UGru7wULWZ-A9jcT9jY3C_KxSQ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyp85GKn5SmGoHS1hNCAxa4YP_-H9iKf3Y_t7Nz5j9WqWaNgYTSSudiWIhU0oaKbBIWlg/exec";
 const imgbbKey = "470e18bf524a4e7396d4002569e54083"; 
 let selectedRoom = "";
 
